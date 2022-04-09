@@ -1,3 +1,5 @@
+import React from 'react'
+import { View } from 'react-native'
 import { SvgIcons, svgIcons } from './SvgIcons'
 
 type IconProps = {
@@ -5,6 +7,8 @@ type IconProps = {
   color?: string
 }
 
-const Icon = (props: IconProps) => svgIcons[props.icon](props)
+const Icon = (props: IconProps) => (
+  <View testID="icon">{svgIcons[props.icon](props)}</View>
+)
 
 export default Icon

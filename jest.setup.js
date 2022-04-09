@@ -9,3 +9,10 @@ jest.mock('@react-navigation/native/lib/commonjs/useLinking.native', () => ({
 
 // surpressing Animated: `useNativeDriver` is not supported warning
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
+
+jest.mock('expo-linear-gradient', () => {
+  const View = require('react-native/Libraries/Components/View/View')
+  return {
+    LinearGradient: View,
+  }
+})

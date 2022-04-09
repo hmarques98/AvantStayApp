@@ -7,7 +7,7 @@ module.exports = {
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   transformIgnorePatterns: [
-    'node_modules/(?!(@react-native|react-native|react-native-vector-icons|react-native-iphone-x-helper|react-native-flipper|@react-native-community|@react-navigation|.|react-navigation|react-native-animatable)/)',
+    'node_modules/(?!(@react-native|react-native|react-native-vector-icons|react-native-iphone-x-helper|react-native-flipper|expo-linear-gradient|@react-native-community||expo(nent)?|@expo(nent)?/.*|@react-navigation|.|react-navigation|react-native-animatable)/)',
   ],
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':

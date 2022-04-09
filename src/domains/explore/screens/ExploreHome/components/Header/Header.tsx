@@ -2,30 +2,19 @@ import React from 'react'
 import { Image, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import Icon from '@shared-components/Icon'
+import styles, { LINEAR_COLORS } from './styles'
 
-interface HeaderProps {}
-
-const Header = ({}: HeaderProps) => {
+const Header = () => {
   return (
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={styles.container}>
       <Image
-        style={{ width: '100%' }}
-        source={require('@assets/images/logo.png')}
+        testID="imHouse"
+        style={styles.image}
+        source={require('@assets/images/img-house-and-people.png')}
       />
 
-      <View
-        style={{
-          position: 'absolute',
-          paddingTop: 28,
-          width: '100%',
-          alignItems: 'center',
-          flex: 1,
-        }}
-      >
-        <LinearGradient
-          colors={['#00000052', '#00000000', '#00000000', '#0000004D']}
-          style={{ position: 'absolute', width: '100%', height: 400 }}
-        />
+      <View style={styles.logoContainer}>
+        <LinearGradient colors={LINEAR_COLORS} style={styles.linearGradient} />
         <Icon icon="logoText" />
       </View>
     </View>
