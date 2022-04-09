@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import { FONT_SSP_400, FONT_SSP_600 } from "../../styles/theme/fonts";
 // import styles from './styles';
 
 interface InputProps {}
@@ -7,8 +8,11 @@ interface InputProps {}
 const Input = ({}: InputProps) => {
   return (
     <View style={{ width: "100%" }}>
-      <Text style={{ color: "#34AEBC", fontWeight: "600" }}>Title</Text>
-      <TextInput value="Any Destination" style={{ marginVertical: 2 }} />
+      <Text style={{ color: "#34AEBC", fontFamily: FONT_SSP_600 }}>Title</Text>
+      <TextInput
+        value="Any Destination"
+        style={{ marginVertical: 2, fontFamily: FONT_SSP_400 }}
+      />
       <View
         style={{
           backgroundColor: "#022B54",

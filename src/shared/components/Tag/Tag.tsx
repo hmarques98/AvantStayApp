@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { FONT_SSP_600 } from "../../styles/theme/fonts";
 // import styles from './styles';
 
 interface TagProps {}
@@ -16,10 +17,16 @@ const Tag = ({}: TagProps) => {
           marginRight: 8,
         }}
       >
-        <Text style={{ color: "#34AEBC", fontWeight: "600", marginRight: 10 }}>
+        <Text
+          style={{
+            color: "#34AEBC",
+            fontFamily: FONT_SSP_600,
+            marginRight: 10,
+          }}
+        >
           Palm Springs
         </Text>
-        <Text style={{ color: "#34AEBC", fontWeight: "600" }}>X</Text>
+        <Text style={{ color: "#34AEBC", fontFamily: FONT_SSP_600 }}>X</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={{

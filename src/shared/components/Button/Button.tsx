@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { FONT_SSP_600 } from "../../styles/theme/fonts";
 // import styles from './styles';
 
 interface ButtonProps {}
@@ -16,7 +17,9 @@ const Button = ({}: ButtonProps) => {
         alignItems: "center",
       }}
     >
-      <Text style={{ color: "#011B35", fontWeight: "600" }}>Explore homes</Text>
+      <Text style={{ color: "#011B35", fontFamily: FONT_SSP_600 }}>
+        Explore homes
+      </Text>
     </TouchableOpacity>
   );
 };
