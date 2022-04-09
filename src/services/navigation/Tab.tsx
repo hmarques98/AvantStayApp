@@ -6,9 +6,10 @@ import ExploreHome from '../../domains/explore/screens/ExploreHome'
 import BookingsHome from '../../domains/bookings/screens/BookingsHome'
 import ProfileHome from '../../domains/profile/screens/ProfileHome'
 import SupportHome from '../../domains/support/screens/SupportHome'
-import Icon from '../../shared/components/Icon/Icon'
+
 import { RouteProp } from '@react-navigation/native'
-import { SvgIcons } from '../../shared/components/Icon/SvgIcons'
+import Icon from '@shared-components/Icon'
+import { SvgIcons } from '@shared-components/Icon/SvgIcons'
 
 const Tab = createBottomTabNavigator()
 
