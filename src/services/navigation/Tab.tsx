@@ -1,51 +1,44 @@
-import React from "react";
+import React from 'react'
 
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Tabs } from "../../shared/models/Screens";
-import ExploreHome from "../../domains/explore/screens/ExploreHome";
-import BookingsHome from "../../domains/bookings/screens/BookingsHome";
-import ProfileHome from "../../domains/profile/screens/ProfileHome";
-import SupportHome from "../../domains/support/screens/SupportHome";
-import Icon from "../../shared/components/Icon/Icon";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Tabs } from '../../shared/models/Screens'
+import ExploreHome from '../../domains/explore/screens/ExploreHome'
+import BookingsHome from '../../domains/bookings/screens/BookingsHome'
+import ProfileHome from '../../domains/profile/screens/ProfileHome'
+import SupportHome from '../../domains/support/screens/SupportHome'
+import Icon from '../../shared/components/Icon/Icon'
+import { RouteProp } from '@react-navigation/native'
+import { SvgIcons } from '../../shared/components/Icon/SvgIcons'
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 const TabNavigation = () => {
-  const renderTabIcon = (
-    route: any,
-    focused: boolean,
-    color: string,
-    size: number
-  ) => {
-    let iconName = "home";
+  const renderTabIcon = (route: RouteProp<never>, color: string) => {
+    let iconName: SvgIcons = 'search'
     switch (route.name) {
       case Tabs.EXPLORE:
-        iconName = focused ? "home" : "home-outline";
-        break;
+        iconName = 'search'
+        break
       case Tabs.BOOKINGS:
-        iconName = focused ? "search" : "search-outline";
-        break;
+        iconName = 'calendar'
+        break
       case Tabs.SUPPORT:
-        iconName = focused ? "notifications" : "notifications-outline";
-        break;
+        iconName = 'support'
+        break
       case Tabs.PROFILE:
-        iconName = focused ? "person" : "person-outline";
-        break;
-      default:
-        iconName = focused ? "home" : "home-outline";
-        break;
+        iconName = 'profile'
+        break
     }
-    return <Icon icon="search" color={color} />;
-  };
+    return <Icon icon={iconName} color={color} />
+  }
 
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: "#53C3D0",
-        tabBarInactiveTintColor: "#022B54",
-        tabBarIcon: ({ focused, color, size }) =>
-          renderTabIcon(route, focused, color, size),
+        tabBarActiveTintColor: '#53C3D0',
+        tabBarInactiveTintColor: '#022B54',
+        tabBarIcon: ({ color }) => renderTabIcon(route as never, color),
       })}
     >
       <Tab.Screen name={Tabs.EXPLORE} component={ExploreHome} />
@@ -53,7 +46,7 @@ const TabNavigation = () => {
       <Tab.Screen name={Tabs.PROFILE} component={ProfileHome} />
       <Tab.Screen name={Tabs.SUPPORT} component={SupportHome} />
     </Tab.Navigator>
-  );
-};
+  )
+}
 
-export default TabNavigation;
+export default TabNavigation

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: "red",
-    fontWeight: "bold",
+    color: 'red',
+    fontWeight: 'bold',
   },
-});
-export default styles;
+})
+export default styles

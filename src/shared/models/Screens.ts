@@ -1,11 +1,11 @@
 export enum ScreensStacks {
-  HOME = "HOME",
+  HOME = 'HOME',
 }
 
 export enum Tabs {
-  TAB_NAVIGATION = "TAB_NAVIGATION",
-  EXPLORE = "Explore",
-  BOOKINGS = "Bookings",
-  PROFILE = "Profile",
-  SUPPORT = "Support",
+  TAB_NAVIGATION = 'TAB_NAVIGATION',
+  EXPLORE = 'Explore',
+  BOOKINGS = 'Bookings',
+  PROFILE = 'Profile',
+  SUPPORT = 'Support',
 }

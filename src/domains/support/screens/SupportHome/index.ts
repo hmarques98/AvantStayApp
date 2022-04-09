@@ -1,1 +1,1 @@
-export { default } from "./SupportHomeScreen";
+export { default } from './SupportHomeScreen'

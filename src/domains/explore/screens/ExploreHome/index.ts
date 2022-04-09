@@ -1,1 +1,1 @@
-export { default } from "./ExploreHomeScreen";
+export { default } from './ExploreHomeScreen'
