@@ -6,8 +6,10 @@ import { ScrollView, View } from 'react-native'
 import Input from '@shared-components/Input'
 import Button from '@shared-components/Button'
 import Header from './components/Header'
+import { useNavigation } from '@react-navigation/native'
 
-const ExploreHomeScreen = ({ navigation }) => {
+const ExploreHomeScreen = () => {
+  const navigation = useNavigation()
   return (
     <ScrollView style={styles.container} bounces={false}>
       <Header />

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react-native'
-import ExploreHome from '../ExploreHomeScreen'
+import ExploreHome from '..'
 describe('ExploreHomeScreen', () => {
   test('SHOULD have three texts inputs', () => {
     const { getAllByTestId } = render(<ExploreHome />)
