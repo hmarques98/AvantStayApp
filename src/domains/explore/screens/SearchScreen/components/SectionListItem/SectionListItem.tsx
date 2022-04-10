@@ -1,6 +1,7 @@
+import Divider from '@shared-components/Divider'
 import React from 'react'
 import { FlatList, View } from 'react-native'
-import LabelItem from '../SectionHeaderItem'
+import SectionHeaderItem from '../SectionHeaderItem'
 import SelectItem from '../SelectItem'
 
 const SectionListItem = ({
@@ -14,11 +15,14 @@ const SectionListItem = ({
 }) => {
   return (
     <View style={{ marginBottom: 18 }}>
-      <LabelItem
+      <SectionHeaderItem
         city={city}
         country={country}
-        showCanSelectAll={places.length > 1}
+        showCanSelectAllButton={places.length > 1}
       />
+
+      <Divider />
+
       <FlatList
         data={places}
         keyExtractor={item => item}

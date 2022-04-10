@@ -1,9 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
 import Button from '@shared-components/Button'
+import Divider from '@shared-components/Divider'
 import React from 'react'
 import { FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Header from './components/Header'
+import SearchItem from './components/SearchItem'
 import SectionListItem from './components/SectionListItem'
 import styles from './styles'
 
@@ -26,6 +28,11 @@ const SearchScreen = ({}: SearchScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
+
+      <SearchItem />
+
+      <Divider />
+
       <FlatList
         bounces={false}
         data={mockData}

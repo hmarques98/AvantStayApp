@@ -1,8 +1,9 @@
-import { FONT_SSP_400 } from '@fonts'
 import Checkbox from '@shared-components/Checkbox'
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import styles from './styles'
+import HighlightedText from '@domains/explore/screens/components/HighlightedText'
+import { FONT_SSP_600 } from '@shared/styles/theme/fonts'
 
 interface SelectItemProps {
   place: string
@@ -11,34 +12,28 @@ interface SelectItemProps {
 const SelectItem = ({ place }: SelectItemProps) => {
   const [isChecked, setIsChecked] = React.useState(false)
 
+  const typedText = place.substring(0, 4)
+
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => setIsChecked(preview => !preview)}
       hitSlop={{ bottom: 8, top: 8 }}
     >
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <Checkbox
-          isChecked={isChecked}
-          onPress={() => setIsChecked(preview => !preview)}
+      <Checkbox
+        isChecked={isChecked}
+        onPress={() => setIsChecked(preview => !preview)}
+      />
+      <View style={styles.placeContainer}>
+        <HighlightedText
+          text={place}
+          textToHighlight={typedText}
+          textStyleUnHighlightedText={styles.placeText}
+          textStyleHighlightedText={[
+            styles.placeText,
+            { fontFamily: FONT_SSP_600 },
+          ]}
         />
-        <View style={{ marginLeft: 12 }}>
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: 16,
-              fontFamily: FONT_SSP_400,
-              color: '#022B54B3',
-            }}
-          >
-            {place}
-          </Text>
-        </View>
       </View>
     </TouchableOpacity>
   )

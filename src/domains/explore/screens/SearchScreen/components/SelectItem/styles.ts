@@ -1,14 +1,18 @@
+import { FONT_SSP_400 } from '@shared/styles/theme/fonts'
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  text: {
-    fontSize: 18,
-    color: 'red',
-    fontWeight: 'bold',
+  placeContainer: { marginLeft: 12 },
+  placeText: {
+    fontSize: 16,
+    fontFamily: FONT_SSP_400,
+    color: '#022B54B3',
   },
 })
 export default styles

@@ -41,7 +41,7 @@ const Button = ({ title, variant, ...restProps }: ButtonProps) => {
     : SECONDARY_COLOR
   return (
     <TouchableOpacity
-      style={[styles.buttonContainer, buttonVariants[variant]]}
+      style={[styles.buttonContainer, buttonVariants?.[variant]]}
       {...restProps}
     >
       <Text style={[styles.title, { color: textColor }]}>{title}</Text>
