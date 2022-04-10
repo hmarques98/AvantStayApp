@@ -1,10 +1,13 @@
 import React from 'react'
 import { Image, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import Icon from '@shared-components/Icon'
 import styles, { LINEAR_COLORS } from './styles'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import Icon from '@shared-components/Icon'
 
 const Header = () => {
+  const { top } = useSafeAreaInsets()
+
   return (
     <View style={styles.container}>
       <Image
@@ -14,7 +17,15 @@ const Header = () => {
       />
 
       <View style={styles.logoContainer}>
-        <LinearGradient colors={LINEAR_COLORS} style={styles.linearGradient} />
+        <LinearGradient
+          start={{ x: 0, y: 0.4 }}
+          end={{ x: 0, y: 0 }}
+          locations={[0, 0.1, 0.7, 0.9]}
+          colors={LINEAR_COLORS}
+          style={styles.linearGradient}
+        />
+      </View>
+      <View style={{ marginTop: top, position: 'absolute' }}>
         <Icon icon="logoText" />
       </View>
     </View>

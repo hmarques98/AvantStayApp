@@ -15,7 +15,7 @@ module.exports = function (api) {
             { '@theme': './src/shared/theme' },
             { '@models': './src/services/models' },
             { '@services': './src/services' },
-            { '@domain/screens': './src/domains' },
+            { '@domains': './src/domains' },
             { '@utils': './src/utils/' },
             { '@assets': './src/assets/' },
             { '@colors': './src/shared/styles/theme/colors' },

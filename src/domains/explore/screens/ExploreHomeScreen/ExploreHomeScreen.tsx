@@ -1,17 +1,15 @@
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 import styles from './styles'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 
 import Input from '@shared-components/Input'
 import Button from '@shared-components/Button'
-
 import Header from './components/Header'
 
-const ExploreHomeScreen = () => {
+const ExploreHomeScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container} bounces={false}>
       <Header />
       <View style={styles.roundedContainer}>
         <View style={styles.inputsContainer}>
@@ -28,9 +26,12 @@ const ExploreHomeScreen = () => {
           />
           <Input label="Who" placeholder="Add guests" />
         </View>
-        <Button />
+        <Button
+          title="Explore homes"
+          onPress={() => navigation.navigate('Search')}
+        />
       </View>
-    </SafeAreaView>
+    </ScrollView>
   )
 }
 export default ExploreHomeScreen

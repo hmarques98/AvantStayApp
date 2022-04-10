@@ -11,7 +11,7 @@
       "@colors": ["./shared/styles/theme/colors"],
       "@theme/*": ["./shared/styles/theme/*"],
       "@services/*": ["./services/*"],
-      "@domain/*": ["./domains/*"],
+      "@domains/*": ["./domains/*"],
       "@utils": ["./utils/"],
       "@assets/*": ["./assets/*"]
     }

@@ -1,11 +1,13 @@
 import React from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { FONT_SSP_600 } from '../../styles/theme/fonts'
 // import styles from './styles';
 
-interface ButtonProps {}
+interface ButtonProps extends TouchableOpacityProps {
+  title: string
+}
 
-const Button = ({}: ButtonProps) => {
+const Button = ({ title, ...restProps }: ButtonProps) => {
   return (
     <TouchableOpacity
       style={{
@@ -16,9 +18,10 @@ const Button = ({}: ButtonProps) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}
+      {...restProps}
     >
       <Text style={{ color: '#011B35', fontFamily: FONT_SSP_600 }}>
-        Explore homes
+        {title}
       </Text>
     </TouchableOpacity>
   )

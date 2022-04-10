@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
 
 export const LINEAR_COLORS = [
-  '#00000052',
   '#00000000',
   '#00000000',
   '#0000004D',
+  '#00000052',
 ]
 
 const styles = StyleSheet.create({
@@ -12,10 +12,13 @@ const styles = StyleSheet.create({
   image: { width: '100%' },
   logoContainer: {
     position: 'absolute',
-    paddingTop: 28,
     width: '100%',
     alignItems: 'center',
+    height: '100%',
   },
-  linearGradient: { position: 'absolute', width: '100%', height: 400 },
+  linearGradient: {
+    height: '100%',
+    width: '100%',
+  },
 })
 export default styles

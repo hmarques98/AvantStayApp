@@ -2,16 +2,15 @@ import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
   },
   roundedContainer: {
     backgroundColor: '#fff',
-    borderRadius: 10,
-    height: 400,
-    transform: [{ translateY: -80 }],
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     paddingHorizontal: 20,
-    paddingTop: 30,
+    paddingVertical: 30,
+    marginTop: -80,
   },
   inputsContainer: {
     borderColor: 'rgba(2, 43, 84, 0.15)',
