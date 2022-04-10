@@ -6,13 +6,14 @@
     "paths": {
       "@shared-components/*": ["./shared/components/*"],
       "@shared-models/*": ["./shared/models/*"],
+      "@shared/*": ["./shared/*"],
+      "@services/*": ["./services/*"],
+      "@domains/*": ["./domains/*"],
       "@fonts": ["./shared/styles/theme/fonts"],
       "@api": ["./services/api/index"],
       "@colors": ["./shared/styles/theme/colors"],
       "@theme/*": ["./shared/styles/theme/*"],
-      "@services/*": ["./services/*"],
-      "@domains/*": ["./domains/*"],
-      "@utils": ["./utils/"],
+      "@utils": ["./shared/utils/*"],
       "@assets/*": ["./assets/*"]
     }
   }

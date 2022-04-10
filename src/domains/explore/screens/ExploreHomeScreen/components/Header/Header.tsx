@@ -26,7 +26,7 @@ const Header = () => {
         />
       </View>
       <View style={{ marginTop: top, position: 'absolute' }}>
-        <Icon icon="logoText" />
+        <Icon icon="logoText" testID="icLogoText" />
       </View>
     </View>
   )

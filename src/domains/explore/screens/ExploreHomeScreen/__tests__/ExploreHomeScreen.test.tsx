@@ -1,16 +1,20 @@
 import React from 'react'
-import { render } from '@testing-library/react-native'
-import ExploreHome from '..'
-describe('ExploreHomeScreen', () => {
-  test('SHOULD have three texts inputs', () => {
-    const { getAllByTestId } = render(<ExploreHome />)
+import { render } from '@shared/utils/test'
+import ExploreHomeScreen from '../ExploreHomeScreen'
 
-    expect(getAllByTestId('tiInput').length).toBe(3)
+describe('ExploreHomeScreen', () => {
+  test('SHOULD have three fields text', () => {
+    const { getAllByTestId, getByText } = render(<ExploreHomeScreen />)
+
+    expect(getAllByTestId('vwFieldText').length).toBe(3)
+    expect(getByText('Any Destination')).toBeTruthy()
+    expect(getByText('Select dates')).toBeTruthy()
+    expect(getByText('Add guests')).toBeTruthy()
   })
-  test('SHOULD have image and logo', () => {
-    const { getByTestId } = render(<ExploreHome />)
+  test('SHOULD have render header with image and iconLogo', () => {
+    const { getByTestId } = render(<ExploreHomeScreen />)
 
     expect(getByTestId('imHouse')).toBeTruthy()
-    expect(getByTestId('icon')).toBeTruthy()
+    expect(getByTestId('icLogoText')).toBeTruthy()
   })
 })

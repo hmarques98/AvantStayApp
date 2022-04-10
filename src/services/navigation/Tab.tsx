@@ -11,7 +11,7 @@ import { FONT_SSP_400 } from '@fonts'
 import BookingsHome from '@domains/bookings/screens/BookingsHome'
 import ProfileHome from '@domains/profile/screens/ProfileHome'
 import SupportHome from '@domains/support/screens/SupportHome'
-import { Tabs } from '@shared-models/Screens'
+import { Tabs } from '@shared-models/Navigation'
 
 import { ExploreStackNavigation } from './Stacks'
 
