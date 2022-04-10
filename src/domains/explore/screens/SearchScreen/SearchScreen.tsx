@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
+import { useStores } from '@services/store'
 import Button from '@shared-components/Button'
 import Divider from '@shared-components/Divider'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -25,11 +27,18 @@ const mockData = [mockCity1, mockCity2]
 
 const SearchScreen = ({}: SearchScreenProps) => {
   const navigation = useNavigation()
+  const { destinationsStore } = useStores()
+  const { setSearchInput, searchInput, clearSearchInput } = destinationsStore
+
   return (
     <SafeAreaView style={styles.container}>
       <Header />
 
-      <SearchItem />
+      <SearchItem
+        onChangeText={setSearchInput}
+        value={searchInput}
+        onPressCloseXIcon={clearSearchInput}
+      />
 
       <Divider />
 
@@ -47,10 +56,10 @@ const SearchScreen = ({}: SearchScreenProps) => {
         title="Search"
         variant="primaryFilled"
         onPress={() => {
-          navigation.goBack()
+          // navigation.goBack()
         }}
       />
     </SafeAreaView>
   )
 }
-export default SearchScreen
+export default observer(SearchScreen)

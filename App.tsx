@@ -8,6 +8,7 @@ import {
   SourceSansPro_900Black,
 } from '@expo-google-fonts/source-sans-pro'
 import Navigation from './src/services/navigation/Root'
+import { StoresProvider } from '@services/store'
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -20,7 +21,11 @@ const App = () => {
     return <Text>Loading...</Text>
   }
 
-  return <Navigation />
+  return (
+    <StoresProvider>
+      <Navigation />
+    </StoresProvider>
+  )
 }
 
 export default App

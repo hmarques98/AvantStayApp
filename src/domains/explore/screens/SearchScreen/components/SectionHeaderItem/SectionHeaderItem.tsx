@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import HighlightedText from '@domains/explore/screens/components/HighlightedText'
+import HighlightedText from '@domains/explore/components/HighlightedText'
 import styles from './styles'
+import { useStores } from '@services/store'
 
 interface SectionHeaderProps {
   showCanSelectAllButton: boolean
@@ -14,12 +15,13 @@ const SectionHeader = ({
   country,
   showCanSelectAllButton,
 }: SectionHeaderProps) => {
-  const typedText = city?.toLowerCase().substring(0, 4)
+  const { destinationsStore } = useStores()
+  const { searchInput } = destinationsStore
 
   return (
     <View style={styles.container}>
       <View style={styles.cityAndCountryTextContainer}>
-        <HighlightedText text={city} textToHighlight={typedText} />
+        <HighlightedText text={city} textToHighlight={searchInput} />
         {country && <Text style={styles.countryText}> - {country}</Text>}
       </View>
       {showCanSelectAllButton && (

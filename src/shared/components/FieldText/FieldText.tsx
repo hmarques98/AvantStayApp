@@ -1,12 +1,19 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextStyle,
+  StyleProp,
+} from 'react-native'
 import styles from './styles'
 
 interface FieldTextProps {
-  showDivider?: boolean
   label: string
   placeholder: string
+  placeholderStyle?: StyleProp<TextStyle>
   onPress?(): void
+  showDivider?: boolean
 }
 
 const FieldText = ({
@@ -14,12 +21,15 @@ const FieldText = ({
   label,
   placeholder,
   onPress,
+  placeholderStyle,
 }: FieldTextProps) => {
   return (
     <View style={styles.container} testID="vwFieldText">
       <TouchableOpacity onPress={onPress}>
         <Text style={styles.label}>{label}</Text>
-        <Text style={styles.placeholder}>{placeholder}</Text>
+        <Text style={[styles.placeholder, placeholderStyle]}>
+          {placeholder}
+        </Text>
       </TouchableOpacity>
       {showDivider && <View style={styles.divider} />}
     </View>

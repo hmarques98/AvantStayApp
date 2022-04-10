@@ -4,9 +4,8 @@ import Icon from '@shared-components/Icon'
 import styles from './styles'
 
 type SearchItemProps = TextInputProps & {
-  onPressSearchIcon(): void
-  onPressCloseXIcon(): void
-  onPressTextInput(): void
+  onPressSearchIcon?(): void
+  onPressCloseXIcon?(): void
 }
 
 const SearchItem = ({

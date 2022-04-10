@@ -6,8 +6,8 @@ import styles from './styles'
 type HighlightedTextProps = {
   text: string
   textToHighlight: string
-  textStyleUnHighlightedText: StyleProp<TextStyle>
-  textStyleHighlightedText: StyleProp<TextStyle>
+  textStyleUnHighlightedText?: StyleProp<TextStyle>
+  textStyleHighlightedText?: StyleProp<TextStyle>
 }
 
 const HighlightedText = ({
@@ -27,10 +27,7 @@ const HighlightedText = ({
       <Text style={[styles.highlightedText, textStyleHighlightedText]}>
         {textHighlighted}
       </Text>
-      <Text
-        style={[styles.lighterText, textStyleUnHighlightedText]}
-        numberOfLines={1}
-      >
+      <Text style={[styles.lighterText, textStyleUnHighlightedText]}>
         {endTextTransparent}
       </Text>
     </View>
