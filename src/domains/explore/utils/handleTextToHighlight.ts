@@ -2,13 +2,21 @@ export const handleTextToHighlight = (
   textToHighlight: string,
   fullText: string,
 ) => {
-  const startIndexToHighlight = fullText
+  const indexTextToHighlight = fullText
     .toLowerCase()
     .indexOf(textToHighlight.toLowerCase())
 
-  const endIndexTextToHighlight =
-    fullText.toLowerCase().indexOf(textToHighlight.toLowerCase()) +
-    textToHighlight.length
+  const startIndexToHighlight = indexTextToHighlight
+
+  const handleEndIndexTextToHighlight = () => {
+    if (indexTextToHighlight < 0) {
+      return 0
+    }
+
+    return indexTextToHighlight + textToHighlight.length
+  }
+
+  const endIndexTextToHighlight = handleEndIndexTextToHighlight()
 
   const startTextTransparent = fullText.substring(0, startIndexToHighlight)
 
