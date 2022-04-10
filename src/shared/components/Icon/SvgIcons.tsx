@@ -96,6 +96,17 @@ export const svgIcons = {
       />
     </Svg>
   ),
+  chevronLeft: ({ color, ...restProps }: Props) => (
+    <Svg width={12} height={20} fill="none">
+      <Path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M10.778 1.222a1.1 1.1 0 0 0-1.556 0l-8 8a1.1 1.1 0 0 0 0 1.556l8 8a1.1 1.1 0 1 0 1.556-1.556L3.556 10l7.222-7.222a1.1 1.1 0 0 0 0-1.556Z"
+        fill={color ? color : '#022B54'}
+        {...restProps}
+      />
+    </Svg>
+  ),
 }
 
 export type SvgIcons = keyof typeof svgIcons

@@ -1,24 +1,23 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import Icon from '../Icon/Icon'
-// import styles from './styles';
+import styles from './styles'
 
-interface CheckboxProps {}
+interface CheckboxProps extends TouchableOpacityProps {
+  isChecked: boolean
+}
 
-const Checkbox = ({}: CheckboxProps) => {
-  const [isChecked, setIsChecked] = React.useState(false)
-
+const Checkbox = ({ isChecked, ...restProps }: CheckboxProps) => {
   return (
     <TouchableOpacity
-      style={{
-        borderColor: isChecked ? '#53C3D0' : '#CCD5DD',
-        borderWidth: 1.6,
-        borderRadius: 1.6,
-        paddingVertical: 5.25,
-        paddingHorizontal: 2.75,
-        backgroundColor: isChecked ? '#53C3D0' : 'transparent',
-      }}
-      onPress={() => setIsChecked(preview => !preview)}
+      style={[
+        styles.checkbox,
+        {
+          borderColor: isChecked ? '#53C3D0' : '#CCD5DD',
+          backgroundColor: isChecked ? '#53C3D0' : 'transparent',
+        },
+      ]}
+      {...restProps}
     >
       <Icon icon="check" />
     </TouchableOpacity>

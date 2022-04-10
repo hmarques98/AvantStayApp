@@ -1,7 +1,9 @@
-import Icon from '@shared-components/Icon'
+import { useNavigation } from '@react-navigation/native'
+import Button from '@shared-components/Button'
 import React from 'react'
-import { FlatList, Text, TextInput, View } from 'react-native'
+import { FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import Header from './components/Header'
 import SectionListItem from './components/SectionListItem'
 import styles from './styles'
 
@@ -20,32 +22,10 @@ const mockCity2 = {
 const mockData = [mockCity1, mockCity2]
 
 const SearchScreen = ({}: SearchScreenProps) => {
+  const navigation = useNavigation()
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <View style={{ flexDirection: 'row' }}>
-          <Text>{'<'}</Text>
-          <Text>Where</Text>
-        </View>
-        <Text>Clear All {'(1)'}</Text>
-      </View>
-
-      <View>
-        <View style={{ flexDirection: 'row', marginTop: 20 }}>
-          <Icon icon="search" style={{ marginRight: 12 }} />
-          <TextInput placeholder="Search by a location or home name" />
-        </View>
-        <View
-          style={{
-            backgroundColor: '#022B54',
-            opacity: 0.15,
-            height: 1,
-            width: '100%',
-            marginTop: 12,
-          }}
-        />
-      </View>
-
+      <Header />
       <FlatList
         bounces={false}
         data={mockData}
@@ -53,6 +33,14 @@ const SearchScreen = ({}: SearchScreenProps) => {
         keyExtractor={({ city }) => city}
         renderItem={({ item }) => {
           return <SectionListItem {...item} key={item.city} />
+        }}
+      />
+
+      <Button
+        title="Search"
+        variant="primaryFilled"
+        onPress={() => {
+          navigation.goBack()
         }}
       />
     </SafeAreaView>

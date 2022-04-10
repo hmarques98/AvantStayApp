@@ -19,7 +19,7 @@ const ExploreHomeScreen = () => {
             label="Destination"
             placeholder="Any Destination"
             showDivider
-            onPress={() => {}}
+            onPress={() => navigation.navigate('Search')}
           />
           <Input
             label="Check In - Check Out"
@@ -30,7 +30,7 @@ const ExploreHomeScreen = () => {
         </View>
         <Button
           title="Explore homes"
-          onPress={() => navigation.navigate('Search')}
+          // onPress={() => navigation.navigate('Search')}
         />
       </View>
     </ScrollView>
