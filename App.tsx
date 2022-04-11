@@ -9,6 +9,8 @@ import {
 } from '@expo-google-fonts/source-sans-pro'
 import Navigation from './src/services/navigation/Root'
 import { StoresProvider } from '@services/store'
+import { ApolloProvider } from '@apollo/client'
+import { clientGraphql } from '@services/api/graphql'
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -22,9 +24,11 @@ const App = () => {
   }
 
   return (
-    <StoresProvider>
-      <Navigation />
-    </StoresProvider>
+    <ApolloProvider client={clientGraphql}>
+      <StoresProvider>
+        <Navigation />
+      </StoresProvider>
+    </ApolloProvider>
   )
 }
 

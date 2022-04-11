@@ -4,31 +4,27 @@ import Button from '@shared-components/Button'
 import Divider from '@shared-components/Divider'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Header from './components/Header'
 import SearchItem from './components/SearchItem'
 import SectionListItem from './components/SectionListItem'
+import SelectItem from './components/SelectItem'
+import useGetRegions from './hooks/useGetRegions'
 import styles from './styles'
 
 interface SearchScreenProps {}
 
-const mockCity1 = {
-  city: 'California',
-  places: ['Big Bear', 'Coachella Valley', 'Joshua Tree', 'Lake Tahoe'],
-}
-const mockCity2 = {
-  city: 'Baja California Sur',
-  places: ['Cabon San Lucas'],
-  country: 'Mexico',
-}
-
-const mockData = [mockCity1, mockCity2]
-
 const SearchScreen = ({}: SearchScreenProps) => {
   const navigation = useNavigation()
   const { destinationsStore } = useStores()
-  const { setSearchInput, searchInput, clearSearchInput } = destinationsStore
+  const { setSearchInput, searchInput, clearSearchInput, regions } =
+    destinationsStore
+
+  const { loading, error } = useGetRegions()
+
+  if (loading) return <Text>is Loading</Text>
+  if (error) return <Text>Something is wrong</Text>
 
   return (
     <SafeAreaView style={styles.container}>
@@ -42,13 +38,15 @@ const SearchScreen = ({}: SearchScreenProps) => {
 
       <Divider />
 
+      <SelectItem place="Any destination" />
+
       <FlatList
         bounces={false}
-        data={mockData}
+        data={Object.keys(regions)}
         style={{ marginVertical: 18 }}
-        keyExtractor={({ city }) => city}
+        keyExtractor={stateName => stateName}
         renderItem={({ item }) => {
-          return <SectionListItem {...item} key={item.city} />
+          return <SectionListItem stateName={item} key={item} />
         }}
       />
 
@@ -56,7 +54,7 @@ const SearchScreen = ({}: SearchScreenProps) => {
         title="Search"
         variant="primaryFilled"
         onPress={() => {
-          // navigation.goBack()
+          navigation.goBack()
         }}
       />
     </SafeAreaView>

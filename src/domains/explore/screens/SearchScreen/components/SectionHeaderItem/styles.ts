@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
   },
-  cityTextContainer: { flexDirection: 'row' },
-  cityAndCountryTextContainer: { flexDirection: 'row' },
+  stateTextContainer: { flexDirection: 'row' },
+  stateAndCountryTextContainer: { flexDirection: 'row' },
   lighterText: {
     fontSize: 18,
     fontFamily: FONT_SSP_600,

@@ -1,37 +1,35 @@
+import { Region } from '@services/api/graphql/models/Destination'
+import { useStores } from '@services/store'
 import Divider from '@shared-components/Divider'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { FlatList, View } from 'react-native'
 import SectionHeaderItem from '../SectionHeaderItem'
 import SelectItem from '../SelectItem'
 
-const SectionListItem = ({
-  city,
-  country,
-  places,
-}: {
-  city: string
-  country?: string
-  places: string[]
-}) => {
+const SectionListItem = ({ stateName }: { stateName: string }) => {
+  const { destinationsStore } = useStores()
+
+  const { regions } = destinationsStore
+
   return (
     <View style={{ marginBottom: 18 }}>
       <SectionHeaderItem
-        city={city}
-        country={country}
-        showCanSelectAllButton={places.length > 1}
+        stateName={stateName}
+        showCanSelectAllButton={regions?.[stateName].length > 1}
       />
 
       <Divider />
 
       <FlatList
-        data={places}
-        keyExtractor={item => item}
+        data={regions[stateName] as Region[]}
+        keyExtractor={({ name }) => name}
         renderItem={({ item }) => {
-          return <SelectItem place={item} key={item} />
+          return <SelectItem place={item.name} key={item.name} />
         }}
       />
     </View>
   )
 }
 
-export default SectionListItem
+export default observer(SectionListItem)

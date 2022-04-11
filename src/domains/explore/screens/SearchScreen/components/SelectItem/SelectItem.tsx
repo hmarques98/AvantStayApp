@@ -5,26 +5,27 @@ import styles from './styles'
 import HighlightedText from '@domains/explore/components/HighlightedText'
 import { FONT_SSP_600 } from '@shared/styles/theme/fonts'
 import { useStores } from '@services/store'
+import { observer } from 'mobx-react-lite'
 
 interface SelectItemProps {
   place: string
 }
 
 const SelectItem = ({ place }: SelectItemProps) => {
-  const [isChecked, setIsChecked] = React.useState(false)
-
   const { destinationsStore } = useStores()
-  const { searchInput } = destinationsStore
+  const { searchInput, toggleDestinations, destinations } = destinationsStore
 
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => setIsChecked(preview => !preview)}
+      onPress={() => toggleDestinations(place)}
       hitSlop={{ bottom: 8, top: 8 }}
     >
       <Checkbox
-        isChecked={isChecked}
-        onPress={() => setIsChecked(preview => !preview)}
+        isChecked={destinations.some(destination => destination === place)}
+        onPress={() => {
+          toggleDestinations(place)
+        }}
       />
       <View style={styles.placeContainer}>
         <HighlightedText
@@ -40,4 +41,4 @@ const SelectItem = ({ place }: SelectItemProps) => {
     </TouchableOpacity>
   )
 }
-export default SelectItem
+export default observer(SelectItem)

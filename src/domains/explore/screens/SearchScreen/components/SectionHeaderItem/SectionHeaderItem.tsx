@@ -6,26 +6,28 @@ import { useStores } from '@services/store'
 
 interface SectionHeaderProps {
   showCanSelectAllButton: boolean
-  city: string
-  country?: string
+  stateName: string
 }
 
 const SectionHeader = ({
-  city,
-  country,
+  stateName,
   showCanSelectAllButton,
 }: SectionHeaderProps) => {
   const { destinationsStore } = useStores()
-  const { searchInput } = destinationsStore
+  const { searchInput, selectAllByStateName } = destinationsStore
 
   return (
     <View style={styles.container}>
-      <View style={styles.cityAndCountryTextContainer}>
-        <HighlightedText text={city} textToHighlight={searchInput} />
-        {country && <Text style={styles.countryText}> - {country}</Text>}
+      <View style={styles.stateAndCountryTextContainer}>
+        <HighlightedText text={stateName} textToHighlight={searchInput} />
       </View>
       {showCanSelectAllButton && (
-        <TouchableOpacity style={styles.selectAllButton}>
+        <TouchableOpacity
+          style={styles.selectAllButton}
+          onPress={() => {
+            selectAllByStateName(stateName)
+          }}
+        >
           <Text style={styles.selectAllText}>Select all</Text>
         </TouchableOpacity>
       )}
