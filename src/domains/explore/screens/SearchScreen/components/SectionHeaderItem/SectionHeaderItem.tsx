@@ -15,7 +15,7 @@ const SectionHeader = ({
   showCanSelectAllButton,
 }: SectionHeaderProps) => {
   const { destinationsStore } = useStores()
-  const { searchInput, selectAllByStateName } = destinationsStore
+  const { searchInput } = destinationsStore
 
   return (
     <View style={styles.container}>
@@ -23,12 +23,7 @@ const SectionHeader = ({
         <HighlightedText text={stateName} textToHighlight={searchInput} />
       </View>
       {showCanSelectAllButton && (
-        <TouchableOpacity
-          style={styles.selectAllButton}
-          onPress={() => {
-            selectAllByStateName(stateName)
-          }}
-        >
+        <TouchableOpacity style={styles.selectAllButton} onPress={() => {}}>
           <Text style={styles.selectAllText}>Select all</Text>
         </TouchableOpacity>
       )}

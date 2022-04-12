@@ -6,30 +6,31 @@ import HighlightedText from '@domains/explore/components/HighlightedText'
 import { FONT_SSP_600 } from '@shared/styles/theme/fonts'
 import { useStores } from '@services/store'
 import { observer } from 'mobx-react-lite'
+import { Region } from '@services/api/graphql/models/Destination'
 
 interface SelectItemProps {
-  place: string
+  region: Region
 }
 
-const SelectItem = ({ place }: SelectItemProps) => {
+const SelectItem = ({ region }: SelectItemProps) => {
   const { destinationsStore } = useStores()
-  const { searchInput, toggleDestinations, destinations } = destinationsStore
+  const { searchInput, destination, toggleDestination } = destinationsStore
 
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => toggleDestinations(place)}
+      onPress={() => toggleDestination(region)}
       hitSlop={{ bottom: 8, top: 8 }}
     >
       <Checkbox
-        isChecked={destinations.some(destination => destination === place)}
+        isChecked={destination.name === region.name}
         onPress={() => {
-          toggleDestinations(place)
+          toggleDestination(region)
         }}
       />
       <View style={styles.placeContainer}>
         <HighlightedText
-          text={place}
+          text={region?.name}
           textToHighlight={searchInput}
           textStyleUnHighlightedText={styles.placeText}
           textStyleHighlightedText={[

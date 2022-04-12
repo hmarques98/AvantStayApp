@@ -1,5 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
+import { Region } from '@services/api/graphql/models/Destination'
 import { useStores } from '@services/store'
+import { ANY_DESTINATION } from '@services/store/Destination'
 import Button from '@shared-components/Button'
 import Divider from '@shared-components/Divider'
 import Icon from '@shared-components/Icon'
@@ -49,7 +51,7 @@ const SearchScreen = ({}: SearchScreenProps) => {
 
       <Divider />
 
-      <SelectItem place="Any destination" />
+      <SelectItem region={{ name: ANY_DESTINATION } as Region} />
 
       <FlatList
         bounces={false}

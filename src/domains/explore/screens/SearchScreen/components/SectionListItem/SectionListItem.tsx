@@ -25,7 +25,7 @@ const SectionListItem = ({ stateName }: { stateName: string }) => {
         data={regions[stateName] as Region[]}
         keyExtractor={({ name }) => name}
         renderItem={({ item }) => {
-          return <SelectItem place={item.name} key={item.name} />
+          return <SelectItem region={item} key={item.name} />
         }}
       />
     </View>

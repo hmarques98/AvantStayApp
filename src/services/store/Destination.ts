@@ -1,8 +1,15 @@
-import { GroupedByStateName } from '@services/api/graphql/models/Destination'
+import {
+  GroupedByStateName,
+  Region,
+} from '@services/api/graphql/models/Destination'
 import { makeAutoObservable } from 'mobx'
 
+export const ANY_DESTINATION = 'Any destination'
+
 class DestinationStore {
-  destinations: string[] = []
+  destination: Region = {
+    name: ANY_DESTINATION,
+  } as Region
 
   regions: GroupedByStateName = {} as GroupedByStateName
 
@@ -12,42 +19,18 @@ class DestinationStore {
     makeAutoObservable(this)
   }
 
-  get firstDestinationAdded() {
-    if (this.destinations.length >= 1) return this.destinations[0]
+  toggleDestination = (destination: Region) => {
+    if (this.destination.id === destination.id)
+      return (this.destination = {
+        name: ANY_DESTINATION,
+      } as Region)
+    this.destination = destination
   }
 
-  get totalDestinations() {
-    return this.destinations.length
-  }
-
-  toggleDestinations = (destination: string) => {
-    const destinationAlreadyAdded = this.destinations.some(
-      destinationItem => destinationItem === destination,
-    )
-    if (destinationAlreadyAdded) {
-      this.removeDestinationFromList(destination)
-    } else this.addDestinationToList(destination)
-  }
-
-  selectAllByStateName = (stateName: string) => {
-    const allFromState = this.regions[stateName].map(({ name }) => name)
-    this.destinations = [...new Set([...this.destinations, ...allFromState])]
-  }
-
-  clearDestinations = () => {
-    this.destinations = []
-  }
-
-  private addDestinationToList = (destination: string) => {
-    this.destinations.push(destination)
-  }
-
-  removeDestinationFromList = (destination: string) => {
-    const updatedDestinations = this.destinations.filter(
-      destinationValue => destinationValue !== destination,
-    )
-
-    this.destinations = updatedDestinations
+  clearAllDestinations = () => {
+    this.destination = {
+      name: ANY_DESTINATION,
+    } as Region
   }
 
   setSearchInput = (value: string) => {

@@ -14,7 +14,9 @@ const useGetRegions = () => {
 
   const { loading, error, data } = useQuery<Regions>(GET_REGIONS, {
     onCompleted: ({ regions }) => {
-      addRegions(groupBy<GroupedByStateName, Region[]>(regions, 'stateName'))
+      addRegions(
+        groupBy<GroupedByStateName, keyof Region>(regions, 'stateName'),
+      )
     },
   })
 
