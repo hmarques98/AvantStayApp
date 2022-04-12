@@ -21,7 +21,7 @@ interface SearchScreenProps {}
 const SearchScreen = ({}: SearchScreenProps) => {
   const navigation = useNavigation()
   const { destinationsStore } = useStores()
-  const { setSearchInput, searchInput, clearSearchInput, regions } =
+  const { setSearchInput, searchInput, clearSearchInput, regionsGrouped } =
     destinationsStore
 
   const { loading, error } = useGetRegions()
@@ -51,11 +51,19 @@ const SearchScreen = ({}: SearchScreenProps) => {
 
       <Divider />
 
-      <SelectItem region={{ name: ANY_DESTINATION } as Region} />
-
       <FlatList
         bounces={false}
-        data={Object.keys(regions)}
+        data={Object.keys(regionsGrouped)}
+        ListHeaderComponentStyle={styles.listHeaderComponent}
+        ListHeaderComponent={() => {
+          return (
+            <>
+              {!searchInput && (
+                <SelectItem region={{ name: ANY_DESTINATION } as Region} />
+              )}
+            </>
+          )
+        }}
         style={{ marginVertical: 18 }}
         keyExtractor={stateName => stateName}
         renderItem={({ item }) => {

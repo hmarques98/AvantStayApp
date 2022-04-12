@@ -13,5 +13,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   containerError: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  listHeaderComponent: {
+    marginBottom: 18,
+  },
 })
 export default styles
