@@ -1,50 +1,35 @@
+import Icon from '@shared-components/Icon'
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { FONT_SSP_600 } from '../../styles/theme/fonts'
-// import styles from './styles';
+import styles from './styles'
 
-interface TagProps {}
+type TagProps = {
+  value: string
+  quantity: number
+  onPressPlusQuantity(): void
+  onPressValue(): void
+}
 
-const Tag = ({}: TagProps) => {
+const Tag = ({
+  value,
+  quantity,
+  onPressValue,
+  onPressPlusQuantity,
+}: TagProps) => {
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={styles.container}>
       <TouchableOpacity
-        style={{
-          backgroundColor: '#DDF3F699',
-          flexDirection: 'row',
-          paddingHorizontal: 12,
-          paddingVertical: 6,
-          marginRight: 8,
-        }}
+        style={styles.valueButtonContainer}
+        onPress={onPressValue}
       >
-        <Text
-          style={{
-            color: '#34AEBC',
-            fontFamily: FONT_SSP_600,
-            marginRight: 10,
-          }}
-        >
-          Palm Springs
-        </Text>
-        <Text style={{ color: '#34AEBC', fontFamily: FONT_SSP_600 }}>X</Text>
+        <Text style={styles.valueText}>{value}</Text>
+        <Icon icon="closeX" color="#53C3D0" opacity={1} />
       </TouchableOpacity>
       <TouchableOpacity
-        style={{
-          backgroundColor: '#34AEBC',
-          paddingVertical: 6,
-          paddingHorizontal: 12,
-        }}
+        style={styles.quantityButtonContainer}
+        onPress={onPressPlusQuantity}
       >
-        <Text
-          style={{
-            fontSize: 15,
-            fontWeight: '600',
-
-            color: '#ffffff',
-          }}
-        >
-          +5
-        </Text>
+        <Text style={styles.quantityText}>+{quantity}</Text>
       </TouchableOpacity>
     </View>
   )

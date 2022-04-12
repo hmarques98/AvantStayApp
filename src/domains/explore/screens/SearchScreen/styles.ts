@@ -6,10 +6,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#fff',
   },
-  text: {
-    fontSize: 18,
-    color: 'red',
-    fontWeight: 'bold',
+  containerLogoLoading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
   },
+  containerError: { flex: 1, justifyContent: 'center', alignItems: 'center' },
 })
 export default styles

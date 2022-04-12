@@ -27,6 +27,7 @@ const FieldText = ({
     <View style={styles.container} testID="vwFieldText">
       <TouchableOpacity onPress={onPress}>
         <Text style={styles.label}>{label}</Text>
+
         <Text style={[styles.placeholder, placeholderStyle]}>
           {placeholder}
         </Text>

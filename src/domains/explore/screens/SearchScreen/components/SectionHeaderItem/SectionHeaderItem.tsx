@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import HighlightedText from '@domains/explore/components/HighlightedText'
 import styles from './styles'
 import { useStores } from '@services/store'
+import { observer } from 'mobx-react-lite'
 
 interface SectionHeaderProps {
   showCanSelectAllButton: boolean
@@ -34,4 +35,4 @@ const SectionHeader = ({
     </View>
   )
 }
-export default SectionHeader
+export default observer(SectionHeader)

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text } from 'react-native'
+import { LogBox, Text } from 'react-native'
 
 import {
   useFonts,
@@ -11,6 +11,11 @@ import Navigation from './src/services/navigation/Root'
 import { StoresProvider } from '@services/store'
 import { ApolloProvider } from '@apollo/client'
 import { clientGraphql } from '@services/api/graphql'
+
+if (__DEV__) {
+  LogBox.ignoreAllLogs()
+  import('./ReactotronConfig')
+}
 
 const App = () => {
   const [fontsLoaded] = useFonts({

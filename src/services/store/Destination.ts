@@ -12,6 +12,14 @@ class DestinationStore {
     makeAutoObservable(this)
   }
 
+  get firstDestinationAdded() {
+    if (this.destinations.length >= 1) return this.destinations[0]
+  }
+
+  get totalDestinations() {
+    return this.destinations.length
+  }
+
   toggleDestinations = (destination: string) => {
     const destinationAlreadyAdded = this.destinations.some(
       destinationItem => destinationItem === destination,
@@ -23,8 +31,7 @@ class DestinationStore {
 
   selectAllByStateName = (stateName: string) => {
     const allFromState = this.regions[stateName].map(({ name }) => name)
-
-    this.destinations = [...this.destinations, ...allFromState]
+    this.destinations = [...new Set([...this.destinations, ...allFromState])]
   }
 
   clearDestinations = () => {
@@ -35,7 +42,7 @@ class DestinationStore {
     this.destinations.push(destination)
   }
 
-  private removeDestinationFromList = (destination: string) => {
+  removeDestinationFromList = (destination: string) => {
     const updatedDestinations = this.destinations.filter(
       destinationValue => destinationValue !== destination,
     )
