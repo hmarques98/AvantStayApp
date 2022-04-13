@@ -6,22 +6,32 @@ import { useNavigation } from '@react-navigation/native'
 import FieldText from '@shared-components/FieldText'
 import Button from '@shared-components/Button'
 
-import { NavigationProps } from './models/Navigation'
 import styles from './styles'
 import { useStores } from '@services/store'
 import { observer } from 'mobx-react-lite'
 import Header from './components/Header'
 import { ExploreStackEnum } from '@shared-models/Navigation'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { ExploreStackParamList } from '@services/navigation/Stacks'
 
-const ExploreHomeScreen = () => {
-  const navigation = useNavigation<NavigationProps>()
+export type ExploreNavigationProps = NativeStackNavigationProp<
+  ExploreStackParamList,
+  ExploreStackEnum.HOME_SCREEN
+>
+
+const HomeScreen = () => {
+  const navigation = useNavigation<ExploreNavigationProps>()
 
   const { destinationsStore } = useStores()
 
   const { destination } = destinationsStore
 
-  const goToExploreScreen = () => {
-    navigation.navigate(ExploreStackEnum.EXPLORE_SEARCH_SCREEN)
+  const goToSearchDestinationScreen = () => {
+    navigation.navigate(ExploreStackEnum.SEARCH_SCREEN)
+  }
+
+  const goToHomesRegionScreen = () => {
+    navigation.navigate(ExploreStackEnum.HOMES_REGION_SCREEN)
   }
 
   return (
@@ -37,7 +47,7 @@ const ExploreHomeScreen = () => {
               opacity: 1,
             }}
             showDivider
-            onPress={goToExploreScreen}
+            onPress={goToSearchDestinationScreen}
           />
 
           <FieldText
@@ -50,10 +60,10 @@ const ExploreHomeScreen = () => {
         <Button
           title="Explore homes"
           variant="primaryOutlined"
-          onPress={() => {}}
+          onPress={goToHomesRegionScreen}
         />
       </View>
     </ScrollView>
   )
 }
-export default observer(ExploreHomeScreen)
+export default observer(HomeScreen)

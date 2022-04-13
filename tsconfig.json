@@ -16,5 +16,6 @@
       "@utils": ["./shared/utils/*"],
       "@assets/*": ["./assets/*"]
     }
-  }
+  },
+  "exclude": ["./__mocks__"]
 }

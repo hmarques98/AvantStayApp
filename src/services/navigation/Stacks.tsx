@@ -1,12 +1,18 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import ExploreHomeScreen from '@domains/explore/screens/ExploreHomeScreen'
-import SearchScreen from '@domains/explore/screens/SearchScreen/SearchScreen'
+
+import HomeScreen from '@domains/explore/screens/HomeScreen'
+import SearchScreen from '@domains/explore/screens/SearchScreen'
+import HomesRegionScreen from '@domains/explore/screens/HomesRegionScreen/HomesRegionScreen'
+import HomeDetailScreen from '@domains/explore/screens/HomeDetailScreen'
+
 import { ExploreStackEnum } from '@shared-models/Navigation'
 
 export type ExploreStackParamList = {
-  [ExploreStackEnum.EXPLORE_HOME_SCREEN]: undefined
-  [ExploreStackEnum.EXPLORE_SEARCH_SCREEN]: undefined
+  [ExploreStackEnum.HOME_SCREEN]: undefined
+  [ExploreStackEnum.SEARCH_SCREEN]: undefined
+  [ExploreStackEnum.HOMES_REGION_SCREEN]: undefined
+  [ExploreStackEnum.HOME_DETAIL_SCREEN]: undefined
 }
 
 const ExploreStack = createNativeStackNavigator<ExploreStackParamList>()
@@ -16,13 +22,21 @@ export const ExploreStackNavigation = () => {
     <ExploreStack.Navigator screenOptions={{ headerShown: false }}>
       <ExploreStack.Group>
         <ExploreStack.Screen
-          name={ExploreStackEnum.EXPLORE_HOME_SCREEN}
-          component={ExploreHomeScreen}
+          name={ExploreStackEnum.HOME_SCREEN}
+          component={HomeScreen}
+        />
+        <ExploreStack.Screen
+          name={ExploreStackEnum.HOMES_REGION_SCREEN}
+          component={HomesRegionScreen}
+        />
+        <ExploreStack.Screen
+          name={ExploreStackEnum.HOME_DETAIL_SCREEN}
+          component={HomeDetailScreen}
         />
       </ExploreStack.Group>
       <ExploreStack.Group screenOptions={{ animation: 'slide_from_bottom' }}>
         <ExploreStack.Screen
-          name={ExploreStackEnum.EXPLORE_SEARCH_SCREEN}
+          name={ExploreStackEnum.SEARCH_SCREEN}
           component={SearchScreen}
         />
       </ExploreStack.Group>

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 import { FONT_SSP_400, FONT_SSP_600 } from '@fonts'
 
 const styles = StyleSheet.create({
-  container: { width: '100%' },
+  container: {},
   label: { color: '#34AEBC', fontFamily: FONT_SSP_600 },
   placeholder: {
     color: '#022B54',
