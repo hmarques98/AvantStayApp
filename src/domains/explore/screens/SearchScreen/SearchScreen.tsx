@@ -1,14 +1,17 @@
-import { useNavigation } from '@react-navigation/native'
-import { Region } from '@services/api/graphql/models/Destination'
-import { useStores } from '@services/store'
-import { ANY_DESTINATION } from '@services/store/Destination'
-import Button from '@shared-components/Button'
-import Divider from '@shared-components/Divider'
-import Icon from '@shared-components/Icon'
-import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { FlatList, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native'
+import { observer } from 'mobx-react-lite'
+
+import { Region } from '@services/api/graphql/models/Destination'
+import { useStores } from '@services/store'
+import { ANY_DESTINATION } from '@services/store/Destination'
+
+import Button from '@shared-components/Button'
+import Divider from '@shared-components/Divider'
+import Icon from '@shared-components/Icon'
+
 import Header from './components/Header'
 import SearchItem from './components/SearchItem'
 import SectionListItem from './components/SectionListItem'
@@ -16,15 +19,57 @@ import SelectItem from './components/SelectItem'
 import useGetRegions from './hooks/useGetRegions'
 import styles from './styles'
 
-interface SearchScreenProps {}
-
-const SearchScreen = ({}: SearchScreenProps) => {
+const SearchScreen = () => {
   const navigation = useNavigation()
   const { destinationsStore } = useStores()
-  const { setSearchInput, searchInput, clearSearchInput, regionsGrouped } =
-    destinationsStore
+  const {
+    setSearchInput,
+    searchInput,
+    clearSearchInput,
+    regionsGroupedKeys,
+    destination,
+    destinationIndex,
+    clearDestinationIndex,
+  } = destinationsStore
 
-  const { loading, error } = useGetRegions()
+  const statesNames = regionsGroupedKeys
+  const { loading, error, data } = useGetRegions()
+
+  const listRef = React.useRef<FlatList>(null)
+  const firstLoad = React.useRef(true)
+
+  const regionsSize = data?.regions.length
+
+  const regionSizeList = data?.regions.filter(
+    ({ stateName }) => stateName === destination.stateName,
+  ).length
+
+  React.useEffect(
+    () =>
+      navigation.addListener('beforeRemove', () => {
+        clearDestinationIndex()
+      }),
+    [clearDestinationIndex, navigation],
+  )
+
+  React.useEffect(() => {
+    firstLoad.current = false
+    if (!searchInput && destinationIndex !== 0) {
+      firstLoad.current = true
+      if (firstLoad.current) {
+        const viewOffset =
+          Number(regionsSize) / Number(regionSizeList) + Number(regionsSize)
+
+        setTimeout(() =>
+          listRef.current?.scrollToIndex({
+            index: destinationIndex,
+            animated: true,
+            viewOffset: -Number(viewOffset),
+          }),
+        )
+      }
+    }
+  }, [destinationIndex, regionSizeList, regionsSize, searchInput])
 
   if (loading)
     return (
@@ -53,7 +98,8 @@ const SearchScreen = ({}: SearchScreenProps) => {
 
       <FlatList
         bounces={false}
-        data={Object.keys(regionsGrouped)}
+        ref={listRef}
+        data={statesNames}
         ListHeaderComponentStyle={styles.listHeaderComponent}
         ListHeaderComponent={() => {
           return (
@@ -71,13 +117,7 @@ const SearchScreen = ({}: SearchScreenProps) => {
         }}
       />
 
-      <Button
-        title="Search"
-        variant="primaryFilled"
-        onPress={() => {
-          navigation.goBack()
-        }}
-      />
+      <Button title="Search" variant="primaryFilled" onPress={() => {}} />
     </SafeAreaView>
   )
 }

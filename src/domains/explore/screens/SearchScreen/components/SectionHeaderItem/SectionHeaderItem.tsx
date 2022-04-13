@@ -20,7 +20,13 @@ const SectionHeader = ({
   return (
     <View style={styles.container}>
       <View style={styles.stateAndCountryTextContainer}>
-        <HighlightedText text={stateName} textToHighlight={searchInput} />
+        <HighlightedText
+          text={stateName}
+          textToHighlight={searchInput}
+          textStyleUnHighlightedText={
+            !Boolean(searchInput) && { color: '#022B54' }
+          }
+        />
       </View>
       {showCanSelectAllButton && (
         <TouchableOpacity style={styles.selectAllButton} onPress={() => {}}>

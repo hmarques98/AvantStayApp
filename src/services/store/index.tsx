@@ -1,6 +1,9 @@
 import React, { createContext, useContext } from 'react'
-
+import { configure } from 'mobx'
 import Destination from './Destination'
+configure({
+  enforceActions: 'never',
+})
 
 const StoresContext = createContext({
   destinationsStore: Destination,

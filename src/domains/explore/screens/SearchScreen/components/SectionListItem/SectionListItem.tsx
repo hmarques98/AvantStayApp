@@ -7,7 +7,9 @@ import { FlatList, View } from 'react-native'
 import SectionHeaderItem from '../SectionHeaderItem'
 import SelectItem from '../SelectItem'
 
-const SectionListItem = ({ stateName }: { stateName: string }) => {
+type SectionListItemProps = { stateName: string }
+
+const SectionListItem = ({ stateName }: SectionListItemProps) => {
   const { destinationsStore } = useStores()
 
   const { regionsGrouped } = destinationsStore

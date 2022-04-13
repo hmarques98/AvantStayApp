@@ -16,6 +16,8 @@ class DestinationStore {
 
   searchInput = ''
 
+  destinationIndex = 0
+
   constructor() {
     makeAutoObservable(this)
   }
@@ -27,6 +29,7 @@ class DestinationStore {
         name: ANY_DESTINATION,
       } as Region)
     this.destination = destination
+    this.goToDestinationIndex(destination.stateName)
   }
 
   clearAllDestinations = () => {
@@ -47,6 +50,10 @@ class DestinationStore {
     this.regions = regions
   }
 
+  clearDestinationIndex = () => {
+    this.destinationIndex = 0
+  }
+
   private regionsFilteredByTypedText() {
     if (this.searchInput)
       return this.regions.filter(
@@ -63,6 +70,25 @@ class DestinationStore {
       this.regionsFilteredByTypedText(),
       'stateName',
     )
+  }
+
+  get regionsGroupedKeys() {
+    return Object.keys(this.regionsGrouped)
+  }
+
+  get regionsKeys() {
+    return Object.keys(
+      groupBy<GroupedByStateName, keyof Region>(this.regions, 'stateName'),
+    )
+  }
+
+  private goToDestinationIndex = (stateName: string) => {
+    const regionsKeysList = Object.keys(this.regionsGrouped)
+
+    const index = regionsKeysList.indexOf(stateName)
+    if (this.regionsKeys.length === regionsKeysList.length) {
+      this.destinationIndex = index
+    }
   }
 }
 
