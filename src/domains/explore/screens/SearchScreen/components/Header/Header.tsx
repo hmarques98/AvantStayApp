@@ -20,7 +20,7 @@ const Header = () => {
           <Text style={styles.backButtonText}>Where</Text>
         </View>
       </TouchableOpacity>
-      {destination.id && (
+      {destination?.id && (
         <TouchableOpacity onPress={clearAllDestinations}>
           <Text style={styles.clearText}>Clear All {'(1)'}</Text>
         </TouchableOpacity>
