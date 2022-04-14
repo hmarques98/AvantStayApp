@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { LogBox, Text } from 'react-native'
+import { Text } from 'react-native'
 
 import {
   SourceSansPro_600SemiBold,
@@ -14,7 +14,6 @@ import { clientGraphql } from '@services/api/graphql'
 import { useFonts } from 'expo-font'
 
 if (__DEV__) {
-  LogBox.ignoreAllLogs()
   import('./ReactotronConfig')
 }
 

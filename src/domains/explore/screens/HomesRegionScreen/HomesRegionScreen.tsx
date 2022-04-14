@@ -1,7 +1,6 @@
 import React from 'react'
 import { Dimensions, FlatList, View, Platform, Text } from 'react-native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RouteProp, useRoute } from '@react-navigation/native'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { ExploreStackParamList } from '@services/navigation/Stacks'
@@ -11,13 +10,15 @@ import HomeRegion from './components/HomeRegion'
 import useGetHomes from './hooks/useGetHomes'
 import DatePickerField from './components/DatePickerField'
 import styles from './styles'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import Icon from '@shared-components/Icon'
 
-export type ExploreNavigationProps = NativeStackNavigationProp<
+type HomesRegionsRouteProps = RouteProp<
   ExploreStackParamList,
   ExploreStackEnum.HOMES_REGION_SCREEN
 >
 
-type HomesRegionsRouteProps = RouteProp<
+type HomeRegionNavigationProps = NativeStackNavigationProp<
   ExploreStackParamList,
   ExploreStackEnum.HOMES_REGION_SCREEN
 >
@@ -34,59 +35,70 @@ const HomesRegionScreen = () => {
     params: { id },
   } = useRoute<HomesRegionsRouteProps>()
 
-  const { data } = useGetHomes({ regionId: id })
+  const navigation = useNavigation<HomeRegionNavigationProps>()
 
-  const height = ITEM_HEIGHT
+  const { data, loading } = useGetHomes({ regionId: id })
 
   return (
     <View style={[styles.container, { marginTop: top }]}>
       <View
-        style={[styles.flatListContainer, { height, justifyContent: 'center' }]}
+        style={[
+          styles.flatListContainer,
+          { height: ITEM_HEIGHT, justifyContent: 'center' },
+        ]}
       >
-        <FlatList
-          data={data}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={item => item.id.toString()}
-          snapToInterval={height}
-          bounces={false}
-          snapToAlignment="center"
-          removeClippedSubviews={false}
-          decelerationRate="fast"
-          snapToOffsets={[...Array(data?.length)].map((x, i) => i * height - 2)}
-          ListEmptyComponent={() => {
-            return (
-              <View
-                style={{
-                  height,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  padding: 50,
-                }}
-              >
-                <Text style={styles.titleEmptyListText}>
-                  We couldn’t find any available homes...
-                </Text>
-                <Text style={styles.tipToResolveEmptyListText}>
-                  Please, try to select other dates to see available homes
-                  inside selected regions.
-                </Text>
-              </View>
-            )
-          }}
-          renderItem={({ item, index }) => {
-            return (
-              <HomeRegion
-                key={item.id}
-                listStyle={{
-                  height,
-                  width: ITEM_WIDTH,
-                }}
-                data={item}
-                itemPosition={index + 1}
-              />
-            )
-          }}
-        />
+        {loading ? (
+          <Icon icon="logoVowel" />
+        ) : (
+          <FlatList
+            data={data}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={item => item.id}
+            snapToInterval={ITEM_HEIGHT}
+            bounces={false}
+            snapToAlignment="center"
+            removeClippedSubviews={false}
+            decelerationRate="fast"
+            ListEmptyComponent={() => {
+              return (
+                <View
+                  style={{
+                    height: ITEM_HEIGHT,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: 50,
+                  }}
+                >
+                  <Text style={styles.titleEmptyListText}>
+                    We couldn’t find any available homes...
+                  </Text>
+                  <Text style={styles.tipToResolveEmptyListText}>
+                    Please, try to select other dates to see available homes
+                    inside selected regions.
+                  </Text>
+                </View>
+              )
+            }}
+            renderItem={({ item, index }) => {
+              return (
+                <HomeRegion
+                  onPressItem={() =>
+                    navigation.navigate(ExploreStackEnum.HOME_DETAIL_SCREEN, {
+                      id: item.id,
+                    })
+                  }
+                  key={item.id}
+                  listStyle={{
+                    height: ITEM_HEIGHT,
+                    width: ITEM_WIDTH,
+                  }}
+                  data={item}
+                  itemPosition={index + 1}
+                />
+              )
+            }}
+          />
+        )}
       </View>
       <DatePickerField />
     </View>

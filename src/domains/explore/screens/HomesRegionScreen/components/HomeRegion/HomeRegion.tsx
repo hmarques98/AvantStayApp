@@ -1,34 +1,27 @@
+import HomeDetailSection from '@domains/explore/components/HomeDetailSection'
 import { Home } from '@services/api/graphql/models/Destination'
 import { useStores } from '@services/store'
-import Icon from '@shared-components/Icon'
 import React from 'react'
-import { Text } from 'react-native'
 import { View, TouchableWithoutFeedback, ImageBackground } from 'react-native'
 import Header from '../Header'
 import styles from './styles'
 
-interface HomeRegionProps {
+type HomeRegionProps = {
   listStyle: {
     width: number
     height: number
   }
   data: Home
   itemPosition: number
+  onPressItem(): void
 }
 
-const HomeRegion = ({ listStyle, data, itemPosition }: HomeRegionProps) => {
-  const {
-    bathroomsCount,
-    bedsCount,
-    cityName,
-    hasPool,
-    photos,
-    regionName,
-    stateCode,
-    maxOccupancy,
-    title,
-  } = data
-
+const HomeRegion = ({
+  listStyle,
+  data,
+  itemPosition,
+  onPressItem,
+}: HomeRegionProps) => {
   const { destinationsStore } = useStores()
   const { getHomesListSize } = destinationsStore
   return (
@@ -41,58 +34,18 @@ const HomeRegion = ({ listStyle, data, itemPosition }: HomeRegionProps) => {
         },
       ]}
     >
-      <TouchableWithoutFeedback
-      // onPress={() => navigation.navigate(ExploreStackEnum.HOME_DETAIL_SCREEN)}
-      >
+      <TouchableWithoutFeedback onPress={onPressItem}>
         <ImageBackground
           style={styles.imageBackgroundContainer}
           imageStyle={{ borderRadius: 10 }}
-          source={{ uri: photos[0].url }}
+          source={{ uri: data.photos[0].url }}
           resizeMode="cover"
         >
           <Header homesSize={getHomesListSize} position={itemPosition} />
         </ImageBackground>
       </TouchableWithoutFeedback>
 
-      <View style={styles.homeDetailsContainer}>
-        <Text style={styles.homeLabelText}>
-          {regionName} - {cityName}, {stateCode}
-        </Text>
-        <Text style={styles.homeTitleText}>{title}</Text>
-
-        <View style={styles.detailsHomeContainer}>
-          {Boolean(bedsCount) && (
-            <View style={styles.detailHomeContainer}>
-              <Icon icon="bed" opacity={0.7} />
-              <Text style={styles.detailsHomeText}>
-                {bedsCount} Bedroom{`${bedsCount > 1 ? 's' : ''}`}
-              </Text>
-            </View>
-          )}
-
-          {Boolean(bathroomsCount) && (
-            <View style={styles.detailHomeContainer}>
-              <Icon icon="bath" opacity={0.7} />
-              <Text style={styles.detailsHomeText}>
-                {bathroomsCount} Bathroom
-                {`${bathroomsCount > 1 ? 's' : ''}`}
-              </Text>
-            </View>
-          )}
-
-          {hasPool && (
-            <View style={styles.detailHomeContainer}>
-              <Icon icon="pool" opacity={0.7} />
-              <Text style={styles.detailsHomeText}>Pool</Text>
-            </View>
-          )}
-
-          <View style={styles.detailHomeContainer}>
-            <Icon icon="user" opacity={0.7} />
-            <Text style={styles.detailsHomeText}>{maxOccupancy}</Text>
-          </View>
-        </View>
-      </View>
+      <HomeDetailSection data={data} />
     </View>
   )
 }

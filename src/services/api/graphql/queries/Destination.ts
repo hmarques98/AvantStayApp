@@ -31,3 +31,28 @@ export const GET_HOMES = gql`
     }
   }
 `
+export const GET_HOME = gql`
+  query GetHome($id: UUID!) {
+    home(id: $id) {
+      title
+      description
+      bathroomsCount
+      stateName
+      cityName
+      regionName
+      seasonPricing {
+        highSeason {
+          minPrice
+          maxPrice
+        }
+      }
+      photos {
+        url
+      }
+      hasPool
+      bedsCount
+      stateCode
+      maxOccupancy
+    }
+  }
+`

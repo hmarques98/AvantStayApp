@@ -14,7 +14,9 @@ export type ExploreStackParamList = {
   [ExploreStackEnum.HOMES_REGION_SCREEN]: {
     id: string
   }
-  [ExploreStackEnum.HOME_DETAIL_SCREEN]: undefined
+  [ExploreStackEnum.HOME_DETAIL_SCREEN]: {
+    id: string
+  }
 }
 
 const ExploreStack = createNativeStackNavigator<ExploreStackParamList>()

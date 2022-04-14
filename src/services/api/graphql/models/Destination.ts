@@ -30,11 +30,22 @@ export interface HomesResult {
   }
 }
 
+export interface HomeResult {
+  home: Home
+}
+
+interface Photo {
+  listOrder: number
+  url: string
+}
+
 export interface Home {
+  stateName: string
+  photos: Photo[]
+  seasonPricing: SeasonPricing
   id: string
   title: string
   cityName: string
-  photos: HomesPhoto[]
   bathroomsCount: number
   roomsCount: number
   bedsCount: number
@@ -44,7 +55,11 @@ export interface Home {
   maxOccupancy: number
 }
 
-interface HomesPhoto {
-  listOrder: 0
-  url: string
+export interface SeasonPricing {
+  highSeason: HighSeason
+}
+
+export interface HighSeason {
+  minPrice: number
+  maxPrice: number
 }
