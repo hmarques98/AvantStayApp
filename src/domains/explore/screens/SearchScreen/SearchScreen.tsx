@@ -36,7 +36,6 @@ const SearchScreen = () => {
   const { loading, error, data } = useGetRegions()
 
   const listRef = React.useRef<FlatList>(null)
-  const firstLoad = React.useRef(true)
 
   const regionsSize = data?.regions.length
 
@@ -53,23 +52,21 @@ const SearchScreen = () => {
   )
 
   React.useEffect(() => {
-    firstLoad.current = false
-    if (!searchInput && destinationIndex !== 0) {
-      firstLoad.current = true
-      if (firstLoad.current) {
-        const viewOffset =
-          Number(regionsSize) / Number(regionSizeList) + Number(regionsSize)
+    if (destinationIndex > 0) {
+      const toOffset =
+        (destinationIndex * Number(regionsSize)) / Number(regionSizeList)
 
-        setTimeout(() =>
-          listRef.current?.scrollToIndex({
-            index: destinationIndex,
-            animated: true,
-            viewOffset: -Number(viewOffset),
-          }),
-        )
-      }
+      const viewOffset = ~Math.max(toOffset, 0)
+
+      setTimeout(() =>
+        listRef.current?.scrollToIndex({
+          index: destinationIndex,
+          animated: true,
+          viewOffset: viewOffset,
+        }),
+      )
     }
-  }, [destinationIndex, regionSizeList, regionsSize, searchInput])
+  }, [destinationIndex, regionSizeList, regionsSize])
 
   if (loading)
     return (
@@ -110,6 +107,14 @@ const SearchScreen = () => {
             </>
           )
         }}
+        ListEmptyComponent={() => (
+          <View style={styles.emptyListContainer}>
+            <Text style={styles.emptyListText}>
+              We could not find any destinations matching your request. Send us
+              a chat if you need help!
+            </Text>
+          </View>
+        )}
         style={{ marginVertical: 18 }}
         keyExtractor={stateName => stateName}
         renderItem={({ item }) => {
@@ -117,7 +122,11 @@ const SearchScreen = () => {
         }}
       />
 
-      <Button title="Search" variant="primaryFilled" onPress={() => {}} />
+      <Button
+        title="Search"
+        variant="primaryFilled"
+        onPress={() => navigation.goBack()}
+      />
     </SafeAreaView>
   )
 }

@@ -1,4 +1,5 @@
-import { HomesResult } from '@services/api/graphql/models/Destination'
+import { Home } from '@services/api/graphql/models/Destination'
+import { useStores } from '@services/store'
 import Icon from '@shared-components/Icon'
 import React from 'react'
 import { Text } from 'react-native'
@@ -7,15 +8,15 @@ import Header from '../Header'
 import styles from './styles'
 
 interface HomeRegionProps {
-  listSize: {
+  listStyle: {
     width: number
     height: number
   }
-  data: HomesResult
+  data: Home
   itemPosition: number
 }
 
-const HomeRegion = ({ listSize, data, itemPosition }: HomeRegionProps) => {
+const HomeRegion = ({ listStyle, data, itemPosition }: HomeRegionProps) => {
   const {
     bathroomsCount,
     bedsCount,
@@ -27,13 +28,16 @@ const HomeRegion = ({ listSize, data, itemPosition }: HomeRegionProps) => {
     maxOccupancy,
     title,
   } = data
+
+  const { destinationsStore } = useStores()
+  const { getHomesListSize } = destinationsStore
   return (
     <View
       style={[
         styles.container,
         {
-          width: listSize.width - 24,
-          height: listSize.height,
+          width: listStyle.width - 24,
+          height: listStyle.height,
         },
       ]}
     >
@@ -46,7 +50,7 @@ const HomeRegion = ({ listSize, data, itemPosition }: HomeRegionProps) => {
           source={{ uri: photos[0].url }}
           resizeMode="cover"
         >
-          <Header homesSize={10} position={itemPosition} />
+          <Header homesSize={getHomesListSize} position={itemPosition} />
         </ImageBackground>
       </TouchableWithoutFeedback>
 

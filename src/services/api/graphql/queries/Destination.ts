@@ -11,8 +11,8 @@ export const GET_REGIONS = gql`
 `
 
 export const GET_HOMES = gql`
-  {
-    homes(guests: 2, order: PRICE_DESC, page: 1, pageSize: 10) {
+  query GetHomes($region: UUID) {
+    homes(region: $region) {
       results {
         id
         title

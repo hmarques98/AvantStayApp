@@ -1,15 +1,23 @@
 import React from 'react'
-import { Dimensions, FlatList, View, Platform } from 'react-native'
+import { Dimensions, FlatList, View, Platform, Text } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RouteProp, useRoute } from '@react-navigation/native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { ExploreStackParamList } from '@services/navigation/Stacks'
 import { ExploreStackEnum } from '@shared-models/Navigation'
+
 import HomeRegion from './components/HomeRegion'
 import useGetHomes from './hooks/useGetHomes'
 import DatePickerField from './components/DatePickerField'
+import styles from './styles'
 
 export type ExploreNavigationProps = NativeStackNavigationProp<
+  ExploreStackParamList,
+  ExploreStackEnum.HOMES_REGION_SCREEN
+>
+
+type HomesRegionsRouteProps = RouteProp<
   ExploreStackParamList,
   ExploreStackEnum.HOMES_REGION_SCREEN
 >
@@ -22,23 +30,19 @@ const ITEM_WIDTH = width
 
 const HomesRegionScreen = () => {
   const { top } = useSafeAreaInsets()
+  const {
+    params: { id },
+  } = useRoute<HomesRegionsRouteProps>()
 
-  const { data } = useGetHomes()
+  const { data } = useGetHomes({ regionId: id })
 
   const height = ITEM_HEIGHT
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#FFF',
-        marginTop: top,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingBottom: 12,
-      }}
-    >
-      <View style={{ height, overflow: 'hidden' }}>
+    <View style={[styles.container, { marginTop: top }]}>
+      <View
+        style={[styles.flatListContainer, { height, justifyContent: 'center' }]}
+      >
         <FlatList
           data={data}
           showsVerticalScrollIndicator={false}
@@ -49,11 +53,31 @@ const HomesRegionScreen = () => {
           removeClippedSubviews={false}
           decelerationRate="fast"
           snapToOffsets={[...Array(data?.length)].map((x, i) => i * height - 2)}
+          ListEmptyComponent={() => {
+            return (
+              <View
+                style={{
+                  height,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  padding: 50,
+                }}
+              >
+                <Text style={styles.titleEmptyListText}>
+                  We couldn’t find any available homes...
+                </Text>
+                <Text style={styles.tipToResolveEmptyListText}>
+                  Please, try to select other dates to see available homes
+                  inside selected regions.
+                </Text>
+              </View>
+            )
+          }}
           renderItem={({ item, index }) => {
             return (
               <HomeRegion
                 key={item.id}
-                listSize={{
+                listStyle={{
                   height,
                   width: ITEM_WIDTH,
                 }}

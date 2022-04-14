@@ -1,3 +1,4 @@
+import { FONT_SSP_400 } from '@shared/styles/theme/fonts'
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -16,5 +17,12 @@ const styles = StyleSheet.create({
   listHeaderComponent: {
     marginBottom: 18,
   },
+  emptyListText: {
+    textAlign: 'center',
+    fontFamily: FONT_SSP_400,
+    fontSize: 16,
+    color: '#022B5499',
+  },
+  emptyListContainer: { alignItems: 'center' },
 })
 export default styles

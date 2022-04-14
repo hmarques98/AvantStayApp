@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { useStores } from '@services/store'
+import { ANY_DESTINATION } from '@services/store/Destination'
 import Icon from '@shared-components/Icon'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -20,7 +21,7 @@ const Header = () => {
           <Text style={styles.backButtonText}>Where</Text>
         </View>
       </TouchableOpacity>
-      {destination?.id && (
+      {destination?.name !== ANY_DESTINATION && (
         <TouchableOpacity onPress={clearAllDestinations}>
           <Text style={styles.clearText}>Clear All {'(1)'}</Text>
         </TouchableOpacity>

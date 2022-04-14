@@ -11,7 +11,9 @@ import { ExploreStackEnum } from '@shared-models/Navigation'
 export type ExploreStackParamList = {
   [ExploreStackEnum.HOME_SCREEN]: undefined
   [ExploreStackEnum.SEARCH_SCREEN]: undefined
-  [ExploreStackEnum.HOMES_REGION_SCREEN]: undefined
+  [ExploreStackEnum.HOMES_REGION_SCREEN]: {
+    id: string
+  }
   [ExploreStackEnum.HOME_DETAIL_SCREEN]: undefined
 }
 

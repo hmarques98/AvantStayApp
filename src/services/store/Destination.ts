@@ -1,18 +1,24 @@
+import { makeAutoObservable } from 'mobx'
 import {
   GroupedByStateName,
+  Home,
   Region,
 } from '@services/api/graphql/models/Destination'
 import { groupBy } from '@shared/utils/arrray/groupBy'
-import { makeAutoObservable } from 'mobx'
 
 export const ANY_DESTINATION = 'Any destination'
+export const INITIAL_STATE_DESTINATION: Region = {
+  id: '0',
+  name: ANY_DESTINATION,
+  stateName: ANY_DESTINATION,
+}
 
 class DestinationStore {
-  destination: Region = {
-    name: ANY_DESTINATION,
-  } as Region
+  destination: Region = INITIAL_STATE_DESTINATION
 
   private regions: Region[] = []
+
+  private homes: Home[] = []
 
   searchInput = ''
 
@@ -22,20 +28,21 @@ class DestinationStore {
     makeAutoObservable(this)
   }
 
+  clearDestinationIndex = () => {
+    this.destinationIndex = 0
+  }
+
   toggleDestination = (destination: Region) => {
     this.searchInput = ''
     if (this.destination.id === destination.id)
-      return (this.destination = {
-        name: ANY_DESTINATION,
-      } as Region)
+      return (this.destination = INITIAL_STATE_DESTINATION)
     this.destination = destination
-    this.goToDestinationIndex(destination.stateName)
+    this.scrollToDestinationStateIndex(destination.stateName)
   }
 
   clearAllDestinations = () => {
-    this.destination = {
-      name: ANY_DESTINATION,
-    } as Region
+    this.destination = INITIAL_STATE_DESTINATION
+    this.destinationIndex = 0
   }
 
   setSearchInput = (value: string) => {
@@ -50,8 +57,12 @@ class DestinationStore {
     this.regions = regions
   }
 
-  clearDestinationIndex = () => {
-    this.destinationIndex = 0
+  addHomes = (homes: Home[]) => {
+    this.homes = homes
+  }
+
+  get getHomesListSize() {
+    return this.homes.length
   }
 
   private regionsFilteredByTypedText() {
@@ -82,7 +93,7 @@ class DestinationStore {
     )
   }
 
-  private goToDestinationIndex = (stateName: string) => {
+  private scrollToDestinationStateIndex = (stateName: string) => {
     const regionsKeysList = Object.keys(this.regionsGrouped)
 
     const index = regionsKeysList.indexOf(stateName)

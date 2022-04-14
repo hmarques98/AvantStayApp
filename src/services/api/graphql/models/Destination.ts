@@ -24,13 +24,13 @@ export enum Typename {
   Region = 'Region',
 }
 
-export interface Homes {
+export interface HomesResult {
   homes: {
-    results: HomesResult[]
+    results: Home[]
   }
 }
 
-export interface HomesResult {
+export interface Home {
   id: string
   title: string
   cityName: string
