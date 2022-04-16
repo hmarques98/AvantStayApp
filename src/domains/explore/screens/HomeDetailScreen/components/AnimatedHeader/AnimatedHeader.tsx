@@ -22,9 +22,9 @@ const AnimatedHeader = ({
   const { top: topSafeArea } = useSafeAreaInsets()
   const scrollOffSet = HEADER_HEIGHT + topSafeArea + SPACING
 
-  const headerHeight = animatedValue?.interpolate({
+  const backgroundColor = animatedValue?.interpolate({
     inputRange: [0, scrollOffSet],
-    outputRange: [0, HEADER_HEIGHT + topSafeArea],
+    outputRange: ['transparent', '#ffffff'],
     extrapolate: 'clamp',
   })
 
@@ -40,34 +40,37 @@ const AnimatedHeader = ({
     extrapolate: 'clamp',
   })
 
-  const buttons = (color: string) => {
-    return (
-      <>
-        <TouchableOpacity
-          onPress={onPressIconLeft}
-          hitSlop={{
-            bottom: HIT_SLOP,
-            left: HIT_SLOP,
-            right: HIT_SLOP,
-            top: HIT_SLOP,
-          }}
-        >
-          <Icon icon="arrowLeft" color={color} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onPressIconRight}
-          hitSlop={{
-            bottom: HIT_SLOP,
-            left: HIT_SLOP,
-            right: HIT_SLOP,
-            top: HIT_SLOP,
-          }}
-        >
-          <Icon icon="share" color={color} />
-        </TouchableOpacity>
-      </>
-    )
-  }
+  const buttons = React.useCallback(
+    (color: string) => {
+      return (
+        <>
+          <TouchableOpacity
+            onPress={onPressIconLeft}
+            hitSlop={{
+              bottom: HIT_SLOP,
+              left: HIT_SLOP,
+              right: HIT_SLOP,
+              top: HIT_SLOP,
+            }}
+          >
+            <Icon icon="arrowLeft" color={color} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={onPressIconRight}
+            hitSlop={{
+              bottom: HIT_SLOP,
+              left: HIT_SLOP,
+              right: HIT_SLOP,
+              top: HIT_SLOP,
+            }}
+          >
+            <Icon icon="share" color={color} />
+          </TouchableOpacity>
+        </>
+      )
+    },
+    [onPressIconLeft, onPressIconRight],
+  )
 
   return (
     <View style={[styles.container, { height: HEADER_HEIGHT }]}>
@@ -76,9 +79,9 @@ const AnimatedHeader = ({
           styles.animatedContainer,
           {
             paddingBottom: SPACING,
-            top: -topSafeArea,
-            height: headerHeight,
-            backgroundColor: '#ffffff',
+
+            height: HEADER_HEIGHT,
+            backgroundColor: backgroundColor,
             opacity: opacityOnScroll,
             zIndex: 10,
           },
@@ -103,4 +106,4 @@ const AnimatedHeader = ({
     </View>
   )
 }
-export default AnimatedHeader
+export default React.memo(AnimatedHeader)

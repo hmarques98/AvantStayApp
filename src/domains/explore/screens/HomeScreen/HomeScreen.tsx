@@ -28,7 +28,7 @@ const HomeScreen = () => {
   const { destination } = destinationsStore
 
   const goToSearchDestinationScreen = () => {
-    navigation.navigate(ExploreStackEnum.SEARCH_SCREEN)
+    navigation.navigate(ExploreStackEnum.SEARCH_DESTINATION_SCREEN)
   }
 
   const goToHomesRegionScreen = () => {

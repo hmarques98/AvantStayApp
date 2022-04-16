@@ -5,7 +5,7 @@ import { View, Text } from 'react-native'
 import styles from './styles'
 
 type HomeDetailSectionProps = {
-  data: Home
+  data?: Home
 }
 const HomeDetailSection = ({ data }: HomeDetailSectionProps) => {
   const {
@@ -17,7 +17,7 @@ const HomeDetailSection = ({ data }: HomeDetailSectionProps) => {
     stateCode,
     maxOccupancy,
     title,
-  } = data
+  } = data || ({} as Home)
 
   return (
     <View style={styles.homeDetailsContainer}>

@@ -24,22 +24,5 @@ const styles = StyleSheet.create({
     color: '#505051',
   },
   showDescriptionButton: { marginTop: 4, alignSelf: 'flex-start' },
-  shadowDescription: {
-    height: 20,
-    backgroundColor: '#ffffff93',
-    position: 'absolute',
-    justifyContent: 'center',
-    right: 0,
-    left: 0,
-    bottom: 0,
-    shadowColor: '#ffffff',
-    shadowOffset: {
-      height: 0,
-      width: 0,
-    },
-    shadowOpacity: 0.8,
-    shadowRadius: 20,
-  },
-  showDescriptionText: { fontFamily: FONT_SSP_600, color: '#022B54B3' },
 })
 export default styles

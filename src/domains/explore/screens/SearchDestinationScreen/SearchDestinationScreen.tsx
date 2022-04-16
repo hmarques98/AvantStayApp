@@ -19,7 +19,7 @@ import useGetRegions from './hooks/useGetRegions'
 import styles from './styles'
 import Divider from '@shared-components/Divider'
 
-const SearchScreen = () => {
+const SearchDestinationScreen = () => {
   const navigation = useNavigation()
   const { destinationsStore } = useStores()
   const {
@@ -178,4 +178,4 @@ const SearchScreen = () => {
     </SafeAreaView>
   )
 }
-export default observer(SearchScreen)
+export default observer(SearchDestinationScreen)
