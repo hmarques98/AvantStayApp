@@ -36,6 +36,7 @@ export const GET_HOME = gql`
     home(id: $id) {
       title
       description
+      amenities
       bathroomsCount
       stateName
       cityName

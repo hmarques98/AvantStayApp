@@ -6,6 +6,7 @@ import {
   SourceSansPro_400Regular,
   SourceSansPro_900Black,
   SourceSansPro_700Bold,
+  SourceSansPro_400Regular_Italic,
 } from '@expo-google-fonts/source-sans-pro'
 import Navigation from './src/services/navigation/Root'
 import { StoresProvider } from '@services/store'
@@ -20,6 +21,7 @@ if (__DEV__) {
 const App = () => {
   const [fontsLoaded] = useFonts({
     SourceSansPro_400Regular,
+    SourceSansPro_400Regular_Italic,
     SourceSansPro_600SemiBold,
     SourceSansPro_700Bold,
     SourceSansPro_900Black,

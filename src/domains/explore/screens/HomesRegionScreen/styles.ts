@@ -1,4 +1,8 @@
-import { FONT_SSP_400, FONT_SSP_700 } from '@shared/styles/theme/fonts'
+import {
+  FONT_SSP_400,
+  FONT_SSP_600,
+  FONT_SSP_700,
+} from '@shared/styles/theme/fonts'
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -24,6 +28,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 14,
     lineHeight: 22,
+  },
+  datePickerContainer: { paddingHorizontal: 26 },
+  loadingText: {
+    fontFamily: FONT_SSP_600,
+    fontSize: 18,
+    color: '#022B54',
   },
 })
 export default styles

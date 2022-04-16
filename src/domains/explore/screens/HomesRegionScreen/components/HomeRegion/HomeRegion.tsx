@@ -1,6 +1,5 @@
 import HomeDetailSection from '@domains/explore/components/HomeDetailSection'
 import { Home } from '@services/api/graphql/models/Destination'
-import { useStores } from '@services/store'
 import React from 'react'
 import { View, TouchableWithoutFeedback, ImageBackground } from 'react-native'
 import Header from '../Header'
@@ -22,8 +21,6 @@ const HomeRegion = ({
   itemPosition,
   onPressItem,
 }: HomeRegionProps) => {
-  const { destinationsStore } = useStores()
-  const { getHomesListSize } = destinationsStore
   return (
     <View
       style={[
@@ -41,7 +38,7 @@ const HomeRegion = ({
           source={{ uri: data.photos[0].url }}
           resizeMode="cover"
         >
-          <Header homesSize={getHomesListSize} position={itemPosition} />
+          <Header position={itemPosition} />
         </ImageBackground>
       </TouchableWithoutFeedback>
 

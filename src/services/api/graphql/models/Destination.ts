@@ -45,6 +45,7 @@ export interface Home {
   seasonPricing: SeasonPricing
   id: string
   title: string
+  description: string
   cityName: string
   bathroomsCount: number
   roomsCount: number
@@ -53,6 +54,7 @@ export interface Home {
   regionName: string
   stateCode: string
   maxOccupancy: number
+  amenities: string[]
 }
 
 export interface SeasonPricing {

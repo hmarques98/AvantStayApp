@@ -1,5 +1,5 @@
 import React from 'react'
-import Svg, { Circle, Path, PathProps } from 'react-native-svg'
+import Svg, { Circle, Defs, G, Path, PathProps } from 'react-native-svg'
 
 type Props = Pick<PathProps, 'opacity'> & {
   color?: string
@@ -177,6 +177,42 @@ export const svgIcons = {
         stroke={color ? color : '#022B54'}
         {...restProps}
       />
+    </Svg>
+  ),
+  arrowLeft: ({ color, ...restProps }: Props) => (
+    <Svg width={12} height={21} fill="none">
+      <Path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9.537 20.583.292 11.446a.975.975 0 0 1 0-1.392L9.537.917a1.456 1.456 0 0 1 2.04 0c.563.557.563 1.46 0 2.016L3.67 10.751l7.909 7.815c.562.557.562 1.46 0 2.017a1.456 1.456 0 0 1-2.04 0Z"
+        fill={color ? color : '#FFFFFF'}
+        {...restProps}
+      />
+    </Svg>
+  ),
+  share: ({ color, ...restProps }: Props) => (
+    <Svg width={20} height={24} fill="none">
+      <Path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M10.78 1.296a1.047 1.047 0 0 0-.779-.347c-.27 0-.539.102-.744.308l-4 4a1.05 1.05 0 1 0 1.485 1.485l2.21-2.21V15a1.05 1.05 0 0 0 2.1 0V4.536l2.205 2.206a1.05 1.05 0 1 0 1.485-1.485L10.78 1.296ZM1.998 10.95c.58 0 1.05.47 1.05 1.05v8a.95.95 0 0 0 .95.95h12a.95.95 0 0 0 .95-.95v-8a1.05 1.05 0 1 1 2.1 0v8a3.05 3.05 0 0 1-3.05 3.05h-12a3.05 3.05 0 0 1-3.05-3.05v-8c0-.58.47-1.05 1.05-1.05Z"
+        fill={color ? color : '#FFFFFF'}
+        {...restProps}
+      />
+    </Svg>
+  ),
+  filter: ({ color, ...restProps }: Props) => (
+    <Svg width={24} height={24} fill="none">
+      <G filter="url(#a)">
+        <Path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M14.171 18H2.992C2.456 18 2 18.448 2 19c0 .556.444 1 .992 1h11.179a3.001 3.001 0 0 0 5.658 0h1.179c.536 0 .992-.448.992-1 0-.556-.444-1-.992-1h-1.179a3.001 3.001 0 0 0-5.658 0Zm-3.341-5h10.179c.536 0 .992-.448.992-1 0-.556-.444-1-.992-1H10.83a3.001 3.001 0 0 0-5.658 0H2.993c-.536 0-.992.448-.992 1 0 .556.444 1 .992 1h2.179a3.001 3.001 0 0 0 5.658 0Zm3.341-9H2.992C2.456 4 2 4.448 2 5c0 .556.444 1 .992 1h11.179a3.001 3.001 0 0 0 5.658 0h1.179c.536 0 .992-.448.992-1 0-.556-.444-1-.992-1h-1.179a3.001 3.001 0 0 0-5.658 0ZM17 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm-9 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm9 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+          fill={color ? color : '#022B54'}
+          {...restProps}
+        />
+      </G>
+      <Defs></Defs>
     </Svg>
   ),
 }

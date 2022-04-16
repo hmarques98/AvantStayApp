@@ -2,16 +2,16 @@ import React from 'react'
 import { Dimensions, FlatList, View, Platform, Text } from 'react-native'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 import { ExploreStackParamList } from '@services/navigation/Stacks'
 import { ExploreStackEnum } from '@shared-models/Navigation'
+import Icon from '@shared-components/Icon'
 
 import HomeRegion from './components/HomeRegion'
 import useGetHomes from './hooks/useGetHomes'
 import DatePickerField from './components/DatePickerField'
 import styles from './styles'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import Icon from '@shared-components/Icon'
 
 type HomesRegionsRouteProps = RouteProp<
   ExploreStackParamList,
@@ -48,7 +48,10 @@ const HomesRegionScreen = () => {
         ]}
       >
         {loading ? (
-          <Icon icon="logoVowel" />
+          <View style={{ alignItems: 'center' }}>
+            <Icon icon="logoVowel" />
+            <Text style={styles.loadingText}>Loading homes</Text>
+          </View>
         ) : (
           <FlatList
             data={data}
@@ -100,7 +103,9 @@ const HomesRegionScreen = () => {
           />
         )}
       </View>
-      <DatePickerField />
+      <View style={styles.datePickerContainer}>
+        <DatePickerField />
+      </View>
     </View>
   )
 }
