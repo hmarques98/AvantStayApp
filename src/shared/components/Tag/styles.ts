@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 12,
-    marginRight: 8,
   },
   valueText: {
     color: '#34AEBC',

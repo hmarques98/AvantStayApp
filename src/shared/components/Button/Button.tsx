@@ -4,6 +4,7 @@ import styles from './styles'
 
 const PRIMARY_COLOR = '#022B54'
 const SECONDARY_COLOR = '#010F1E'
+const WHITE = '#FFFFFF'
 
 const buttonVariants = {
   primaryFilled: {
@@ -31,14 +32,29 @@ interface ButtonProps extends TouchableOpacityProps {
 
 const Button = ({ title, variant, ...restProps }: ButtonProps) => {
   const isButtonVariantFilled = variant?.toLowerCase().includes('filled')
-  const isButtonVariantOutlined = variant?.toLowerCase().includes('Outlined')
-  const isButtonVariantPrimary = variant?.toLowerCase().includes('Primary')
+  const isButtonVariantOutlined = variant?.toLowerCase().includes('outlined')
+  const isButtonVariantPrimary = variant?.toLowerCase().includes('primary')
 
-  const textColor = isButtonVariantFilled
-    ? '#fff'
-    : isButtonVariantOutlined && isButtonVariantPrimary
-    ? PRIMARY_COLOR
-    : SECONDARY_COLOR
+  const handleTextColorVariantFilled = () => {
+    if (isButtonVariantFilled) return WHITE
+  }
+
+  const handleTextColorVariantOutlined = () => {
+    if (isButtonVariantOutlined && isButtonVariantPrimary) {
+      return PRIMARY_COLOR
+    }
+    return SECONDARY_COLOR
+  }
+
+  const handleTextColor = () => {
+    if (handleTextColorVariantFilled()) {
+      return handleTextColorVariantFilled()
+    }
+    return handleTextColorVariantOutlined()
+  }
+
+  const textColor = handleTextColor()
+
   return (
     <TouchableOpacity
       style={[styles.buttonContainer, buttonVariants?.[variant]]}

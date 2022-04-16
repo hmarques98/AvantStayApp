@@ -1,8 +1,18 @@
 import React, { useEffect } from 'react'
-import { View, FlatList, TouchableOpacity, Text, Animated } from 'react-native'
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  Text,
+  Animated,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from 'react-native'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { MarkdownView } from 'react-native-markdown-view'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import ExpoStatusBar from 'expo-status-bar/build/ExpoStatusBar'
+import { setStatusBarStyle } from 'expo-status-bar'
 
 import { ExploreStackParamList } from '@services/navigation/Stacks'
 import { ExploreStackEnum } from '@shared-models/Navigation'
@@ -13,6 +23,7 @@ import styles from './styles'
 import AnimatedHeader from './components/AnimatedHeader'
 import AmenitiesList from './components/AmenitiesList'
 import PhotosList from './components/PhotosList'
+import { HEADER_HEIGHT } from './components/AnimatedHeader/AnimatedHeader'
 
 type HomesRegionsRouteProps = RouteProp<
   ExploreStackParamList,
@@ -36,29 +47,31 @@ const HomeDetailScreen = () => {
     React.useState(false)
   const [contentHeight, setContentHeight] = React.useState(0)
 
-  const isMounted = React.useRef(false)
-  const offsetAnimatedHeader = React.useRef(new Animated.Value(0)).current
+  const isMountedRef = React.useRef(false)
+
+  const offsetAnimatedHeaderRef = React.useRef(new Animated.Value(0)).current
 
   const descriptionContainerHeight = isDescriptionExpanded
     ? contentHeight
     : DESCRIPTION_HEIGHT
-  const animatedHeight = React.useRef(
+
+  const animatedDescriptionContainerRef = React.useRef(
     new Animated.Value(descriptionContainerHeight),
   )
 
-  const transition = Animated.timing(animatedHeight.current, {
+  const transition = Animated.timing(animatedDescriptionContainerRef.current, {
     toValue: descriptionContainerHeight,
     useNativeDriver: false,
     duration: 1000,
   })
 
   const mountedWithContentHeight = React.useMemo(
-    () => isMounted && contentHeight === 0,
+    () => isMountedRef && contentHeight === 0,
     [contentHeight],
   )
 
   useEffect(() => {
-    if (!isMounted.current) isMounted.current = true
+    if (!isMountedRef.current) isMountedRef.current = true
   })
 
   useEffect(() => {
@@ -67,11 +80,20 @@ const HomeDetailScreen = () => {
 
   const navigationGoBack = React.useCallback(() => {
     navigation.goBack()
+    setStatusBarStyle('dark')
   }, [navigation])
 
   const shareHomeDetail = () => {
     //* does some stuff
     //* open native share
+  }
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (event.nativeEvent?.contentOffset.y >= HEADER_HEIGHT) {
+      setStatusBarStyle('dark')
+    } else {
+      setStatusBarStyle('light')
+    }
   }
 
   const { data, loading, error } = useGetHome({ id })
@@ -81,8 +103,9 @@ const HomeDetailScreen = () => {
 
   return (
     <View style={{ backgroundColor: '#fff' }}>
+      <ExpoStatusBar style="light" />
       <AnimatedHeader
-        animatedValue={offsetAnimatedHeader}
+        animatedValue={offsetAnimatedHeaderRef}
         onPressIconLeft={navigationGoBack}
         onPressIconRight={shareHomeDetail}
       />
@@ -97,11 +120,14 @@ const HomeDetailScreen = () => {
           [
             {
               nativeEvent: {
-                contentOffset: { y: offsetAnimatedHeader },
+                contentOffset: { y: offsetAnimatedHeaderRef },
               },
             },
           ],
-          { useNativeDriver: false },
+          {
+            useNativeDriver: false,
+            listener: handleScroll,
+          },
         )}
         ListHeaderComponent={() => {
           return (
@@ -122,7 +148,7 @@ const HomeDetailScreen = () => {
                     overflow: 'hidden',
                     height: mountedWithContentHeight
                       ? 'auto'
-                      : animatedHeight.current,
+                      : animatedDescriptionContainerRef.current,
                   }}
                 >
                   <MarkdownView
@@ -135,11 +161,7 @@ const HomeDetailScreen = () => {
                     {data?.description.replace(/\\/g, '')}
                   </MarkdownView>
                 </Animated.View>
-                <View style={styles.container}>
-                  {!isDescriptionExpanded && (
-                    <View style={styles.shadowDescription} />
-                  )}
-                </View>
+
                 <TouchableOpacity
                   hitSlop={{ top: 10, bottom: 10, right: 10 }}
                   style={styles.showDescriptionButton}

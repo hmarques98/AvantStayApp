@@ -10,6 +10,7 @@ interface CheckboxProps extends TouchableOpacityProps {
 const Checkbox = ({ isChecked, ...restProps }: CheckboxProps) => {
   return (
     <TouchableOpacity
+      accessibilityRole="button"
       style={[
         styles.checkbox,
         {

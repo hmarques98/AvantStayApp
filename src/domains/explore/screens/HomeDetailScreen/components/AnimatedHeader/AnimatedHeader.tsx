@@ -4,7 +4,7 @@ import { Animated, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styles from './styles'
 
-const HEADER_HEIGHT = 95
+export const HEADER_HEIGHT = 95
 const SPACING = 12
 const HIT_SLOP = 20
 const ICON_COLOR_ON_SCROLL = '#022B54'

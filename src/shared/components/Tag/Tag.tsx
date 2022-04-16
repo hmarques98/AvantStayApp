@@ -5,9 +5,9 @@ import styles from './styles'
 
 type TagProps = {
   value: string
-  quantity: number
-  onPressPlusQuantity(): void
-  onPressValue(): void
+  quantity?: number
+  onPressPlusQuantity?(): void
+  onPressValue?(): void
 }
 
 const Tag = ({
@@ -17,7 +17,7 @@ const Tag = ({
   onPressPlusQuantity,
 }: TagProps) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, Boolean(quantity) && { marginRight: 8 }]}>
       <TouchableOpacity
         style={styles.valueButtonContainer}
         onPress={onPressValue}
@@ -25,12 +25,15 @@ const Tag = ({
         <Text style={styles.valueText}>{value}</Text>
         <Icon icon="closeX" color="#53C3D0" opacity={1} />
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.quantityButtonContainer}
-        onPress={onPressPlusQuantity}
-      >
-        <Text style={styles.quantityText}>+{quantity}</Text>
-      </TouchableOpacity>
+
+      {Boolean(quantity) && (
+        <TouchableOpacity
+          style={styles.quantityButtonContainer}
+          onPress={onPressPlusQuantity}
+        >
+          <Text style={styles.quantityText}>+{quantity}</Text>
+        </TouchableOpacity>
+      )}
     </View>
   )
 }
