@@ -1,6 +1,6 @@
 import Checkbox from '@shared-components/Checkbox'
 import React from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import styles from './styles'
 import HighlightedText from '@domains/explore/components/HighlightedText'
 import { FONT_SSP_600 } from '@shared/styles/theme/fonts'
@@ -29,15 +29,26 @@ const SelectItem = ({ region }: SelectItemProps) => {
         }}
       />
       <View style={styles.placeContainer}>
-        <HighlightedText
-          text={region?.name}
-          textToHighlight={searchInput}
-          textStyleUnHighlightedText={styles.placeText}
-          textStyleHighlightedText={[
-            styles.placeText,
-            { fontFamily: FONT_SSP_600 },
-          ]}
-        />
+        {destination.name === region.name ? (
+          <Text
+            style={[
+              styles.placeText,
+              { fontFamily: FONT_SSP_600, color: '#022B54' },
+            ]}
+          >
+            {region.name}
+          </Text>
+        ) : (
+          <HighlightedText
+            text={region?.name}
+            textToHighlight={searchInput}
+            textStyleUnHighlightedText={styles.placeText}
+            textStyleHighlightedText={[
+              styles.placeText,
+              { fontFamily: FONT_SSP_600 },
+            ]}
+          />
+        )}
       </View>
     </TouchableOpacity>
   )

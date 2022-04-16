@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { Animated, Easing, FlatList, Text, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
@@ -9,7 +9,6 @@ import { useStores } from '@services/store'
 import { ANY_DESTINATION } from '@services/store/Destination'
 
 import Button from '@shared-components/Button'
-import Divider from '@shared-components/Divider'
 import Icon from '@shared-components/Icon'
 
 import Header from './components/Header'
@@ -18,6 +17,7 @@ import SectionListItem from './components/SectionListItem'
 import SelectItem from './components/SelectItem'
 import useGetRegions from './hooks/useGetRegions'
 import styles from './styles'
+import Divider from '@shared-components/Divider'
 
 const SearchScreen = () => {
   const navigation = useNavigation()
@@ -36,12 +36,43 @@ const SearchScreen = () => {
   const { loading, error, data } = useGetRegions()
 
   const listRef = React.useRef<FlatList>(null)
+  const searchItemInputRef = React.useRef<TextInput>(null)
+  const animatedWidthDivider = React.useRef(new Animated.Value(0))
 
-  const regionsSize = data?.regions.length
+  const interpolatedAnimatedDivider = animatedWidthDivider.current.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0%', '100%'],
+    extrapolate: 'clamp',
+  })
 
-  const regionSizeList = data?.regions.filter(
-    ({ stateName }) => stateName === destination.stateName,
-  ).length
+  const toggleWidthAnimation = React.useCallback(
+    (toValue: number) => {
+      Animated.timing(animatedWidthDivider.current, {
+        toValue: toValue,
+        useNativeDriver: false,
+        duration: 400,
+        easing: Easing.ease,
+      }).start()
+    },
+    [animatedWidthDivider],
+  )
+
+  const regionsSize = React.useMemo(
+    () => data?.regions.length,
+    [data?.regions.length],
+  )
+
+  const regionSizeList = React.useMemo(
+    () =>
+      data?.regions.filter(
+        ({ stateName }) => stateName === destination.stateName,
+      ).length,
+    [data?.regions, destination.stateName],
+  )
+
+  React.useEffect(() => {
+    searchItemInputRef.current?.blur()
+  }, [destination, toggleWidthAnimation])
 
   React.useEffect(
     () =>
@@ -62,7 +93,7 @@ const SearchScreen = () => {
         listRef.current?.scrollToIndex({
           index: destinationIndex,
           animated: true,
-          viewOffset: viewOffset,
+          viewOffset,
         }),
       )
     }
@@ -86,12 +117,30 @@ const SearchScreen = () => {
       <Header />
 
       <SearchItem
+        onFocus={() => {
+          toggleWidthAnimation(1)
+        }}
+        onBlur={() => {
+          toggleWidthAnimation(0)
+        }}
+        ref={searchItemInputRef}
         onChangeText={setSearchInput}
         value={searchInput}
         onPressCloseXIcon={clearSearchInput}
       />
 
-      <Divider />
+      <View>
+        <Divider />
+        <Animated.View
+          style={{
+            position: 'absolute',
+            marginTop: 12,
+            height: 2,
+            width: interpolatedAnimatedDivider,
+            backgroundColor: '#A3DFE6',
+          }}
+        />
+      </View>
 
       <FlatList
         bounces={false}
@@ -115,7 +164,6 @@ const SearchScreen = () => {
             </Text>
           </View>
         )}
-        style={{ marginVertical: 18 }}
         keyExtractor={stateName => stateName}
         renderItem={({ item }) => {
           return <SectionListItem stateName={item} key={item} />
@@ -125,7 +173,7 @@ const SearchScreen = () => {
       <Button
         title="Search"
         variant="primaryFilled"
-        onPress={() => navigation.goBack()}
+        onPress={navigation.goBack}
       />
     </SafeAreaView>
   )

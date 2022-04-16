@@ -7,17 +7,16 @@ import styles from './styles'
 
 type HeaderProps = {
   position: number
-  homesSize: number
 }
 
-const Header = ({ position, homesSize }: HeaderProps) => {
+const Header = ({ position }: HeaderProps) => {
   const { destinationsStore } = useStores()
-  const { destination } = destinationsStore
+  const { destination, getHomesListSize } = destinationsStore
   return (
     <View style={styles.container}>
       <Text style={styles.boldText}>{position} </Text>
       <Text style={styles.lightText}>of </Text>
-      <Text style={styles.boldText}>{homesSize} </Text>
+      <Text style={styles.boldText}>{getHomesListSize} </Text>
       <Text style={styles.lightText}>homes</Text>
       {destination.name !== INITIAL_STATE_DESTINATION.name && (
         <>
