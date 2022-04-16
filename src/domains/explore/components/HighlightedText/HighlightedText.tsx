@@ -33,4 +33,4 @@ const HighlightedText = ({
     </View>
   )
 }
-export default HighlightedText
+export default React.memo(HighlightedText)

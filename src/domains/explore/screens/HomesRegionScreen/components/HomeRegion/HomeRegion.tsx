@@ -6,7 +6,7 @@ import Header from '../Header'
 import styles from './styles'
 
 type HomeRegionProps = {
-  listStyle: {
+  style: {
     width: number
     height: number
   }
@@ -16,18 +16,25 @@ type HomeRegionProps = {
 }
 
 const HomeRegion = ({
-  listStyle,
+  style,
   data,
   itemPosition,
   onPressItem,
 }: HomeRegionProps) => {
+  const randomImageIndex = React.useMemo(
+    () => Math.floor(Math.random() * data?.photos.length),
+    [data?.photos.length],
+  )
+
+  const memoizedStyle = React.useMemo(() => style, [style])
+
   return (
     <View
       style={[
         styles.container,
         {
-          width: listStyle.width - 24,
-          height: listStyle.height,
+          width: memoizedStyle.width - 24,
+          height: memoizedStyle.height,
         },
       ]}
     >
@@ -35,7 +42,9 @@ const HomeRegion = ({
         <ImageBackground
           style={styles.imageBackgroundContainer}
           imageStyle={{ borderRadius: 10 }}
-          source={{ uri: data.photos[0].url }}
+          source={{
+            uri: data.photos[randomImageIndex].url,
+          }}
           resizeMode="cover"
         >
           <Header position={itemPosition} />

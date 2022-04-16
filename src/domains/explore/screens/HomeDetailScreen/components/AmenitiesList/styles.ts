@@ -1,28 +1,25 @@
-import {
-  FONT_SSP_400,
-  FONT_SSP_400_I,
-  FONT_SSP_600,
-} from '@shared/styles/theme/fonts'
+import { FONT_SSP_400, FONT_SSP_700 } from '@shared/styles/theme/fonts'
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 18,
-    color: 'red',
-    fontWeight: 'bold',
-  },
-  sectionDetailContainer: { marginTop: 10, marginBottom: 35 },
   container: { paddingHorizontal: 26 },
 
-  paragraph: { fontFamily: FONT_SSP_400, color: '#505051' },
-  em: {
-    fontFamily: FONT_SSP_400_I,
-    color: '#505051',
+  listStyle: { marginTop: 30 },
+  titleText: {
+    fontFamily: FONT_SSP_700,
+    color: '#022B54',
+    fontSize: 26,
   },
-  strong: {
-    fontFamily: FONT_SSP_600,
-    color: '#505051',
+  iconItemContainer: { paddingRight: 18 },
+  itemContainer: {
+    flexDirection: 'row',
+    paddingVertical: 20,
+    flex: 1 / 2,
   },
-  showDescriptionButton: { marginTop: 4, alignSelf: 'flex-start' },
+  itemNameText: {
+    fontSize: 16,
+    fontFamily: FONT_SSP_400,
+    color: '#070707B2',
+  },
 })
 export default styles
