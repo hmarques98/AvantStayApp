@@ -1,7 +1,8 @@
-import { Home } from '@services/api/graphql/models/Destination'
-import Icon from '@shared-components/Icon'
 import React from 'react'
 import { View, Text } from 'react-native'
+
+import { Home } from '@services/api/graphql/models/Destination'
+import Icon from '@shared-components/Icon'
 import styles from './styles'
 
 type HomeDetailSectionProps = {
@@ -61,4 +62,4 @@ const HomeDetailSection = ({ data }: HomeDetailSectionProps) => {
     </View>
   )
 }
-export default HomeDetailSection
+export default React.memo(HomeDetailSection)

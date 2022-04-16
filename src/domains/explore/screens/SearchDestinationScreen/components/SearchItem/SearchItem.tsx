@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import React from 'react'
 import { TextInput, TextInputProps, TouchableOpacity, View } from 'react-native'
+
 import Icon from '@shared-components/Icon'
 import styles from './styles'
 
@@ -29,4 +30,4 @@ const SearchItem = React.forwardRef<TextInput, SearchItemProps>(
     )
   },
 )
-export default SearchItem
+export default React.memo(SearchItem)

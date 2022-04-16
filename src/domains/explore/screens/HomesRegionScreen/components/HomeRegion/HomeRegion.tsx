@@ -1,7 +1,7 @@
-import HomeDetailSection from '@domains/explore/components/HomeDetailSection'
-import { Home } from '@services/api/graphql/models/Destination'
 import React from 'react'
 import { View, TouchableWithoutFeedback, ImageBackground } from 'react-native'
+import HomeDetailSection from '@domains/explore/components/HomeDetailSection'
+import { Home } from '@services/api/graphql/models/Destination'
 import Header from '../Header'
 import styles from './styles'
 
@@ -46,4 +46,4 @@ const HomeRegion = ({
     </View>
   )
 }
-export default HomeRegion
+export default React.memo(HomeRegion)
