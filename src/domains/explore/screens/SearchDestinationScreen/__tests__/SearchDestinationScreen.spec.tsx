@@ -1,11 +1,15 @@
 import React from 'react'
-import { render, fireEvent } from '@shared/utils/test'
-import SearchDestinationScreen from '../SearchDestinationScreen'
-
-import DestinationStore from '@services/store/Destination'
-import useGetRegions from '../hooks/useGetRegions'
+import { render, fireEvent, waitFor } from '@shared/utils/test'
+import { useNavigation } from '@react-navigation/native'
 import { ApolloError } from '@apollo/client'
+
+import DestinationStore, {
+  INITIAL_STATE_REGION_DESTINATION,
+} from '@services/store/Destination'
 import { useStores } from '@services/store'
+
+import useGetRegions from '../hooks/useGetRegions'
+import SearchDestinationScreen from '../SearchDestinationScreen'
 
 const destinationMock = DestinationStore as jest.Mocked<typeof DestinationStore>
 
@@ -78,7 +82,7 @@ jest.mock('@services/store', function () {
   return {
     useStores: jest.fn(() => {
       return {
-        destinationsStore: {
+        destinationStore: {
           ...actual.default,
           destination: { id: '03', name: 'Bend', stateName: 'Oregon' },
           regions: regionsResponseApi,
@@ -116,13 +120,36 @@ jest.mock('../hooks/useGetRegions', () =>
   })),
 )
 
-type UseGetRegionsResponse = ReturnType<typeof useGetRegions>
+type UseGetRegionsMockType = ReturnType<typeof useGetRegions>
+type UseStoresMockType = ReturnType<typeof useStores>
+type DestinationStoreType = typeof DestinationStore
 
-const setup = (useGetRegionsResponse?: UseGetRegionsResponse) => {
+const setup = (
+  useGetRegionsMockResponse?: Partial<UseGetRegionsMockType>,
+  useStoresMockResponse?: Partial<UseStoresMockType>,
+) => {
   useGetRegionsMock.mockReturnValue({
     ...defaultValueUseGetRegions,
-    ...useGetRegionsResponse,
-  } as UseGetRegionsResponse)
+    ...useGetRegionsMockResponse,
+  } as UseGetRegionsMockType)
+
+  useStoresMock.mockImplementationOnce(() => {
+    const actual = jest.requireActual('@services/store/Destination')
+    return {
+      destinationStore: {
+        ...actual.default,
+        destination: { id: '03', name: 'Bend', stateName: 'Oregon' },
+        regions: regionsResponseApi,
+        statesGroupedKeys,
+        statesGrouped,
+        setSearchInput: (value: string) => {
+          mockSetSearchInput(value)
+          actual.default.setSearchInput(value)
+        },
+        ...useStoresMockResponse?.destinationStore,
+      },
+    }
+  })
 
   return {
     ...render(<SearchDestinationScreen />),
@@ -179,18 +206,75 @@ describe('SearchDestinationScreen', () => {
     expect(queryByText('Select all')).toBeTruthy()
   })
 
-  test('WHEN type in searchField SHOULD handle searchInput', async () => {
-    const { findByA11yLabel } = setup()
+  test('WHEN typing in searchField SHOULD handle searchInput value', async () => {
+    const { findByPlaceholderText } = setup()
 
-    const searchInput = await findByA11yLabel(
+    const searchInput = await findByPlaceholderText(
       'Search by a location or home name',
     )
-    const value = 'California'
     expect(searchInput).toBeTruthy()
 
+    const value = 'California'
     fireEvent.changeText(searchInput, value)
 
     expect(mockSetSearchInput).toHaveBeenCalledWith(value)
     expect(destinationMock.searchInput).toBe(value)
+
+    fireEvent.changeText(searchInput, '')
+    expect(destinationMock.searchInput).toBe('')
+  })
+
+  test('WHEN statesGroupedKey is empty SHOULD render Empty component ', () => {
+    const { queryByText } = setup(
+      {},
+      {
+        destinationStore: {
+          statesGroupedKeys: [],
+        } as unknown as DestinationStoreType,
+      },
+    )
+    expect(
+      queryByText(
+        'We could not find any destinations matching your request. Send us a chat if you need help!',
+      ),
+    ).toBeTruthy()
+  })
+
+  test('WHEN searchInput has value SHOULD hide SelectItem with Initial Region Destination(Any Destination)', async () => {
+    const { findByPlaceholderText, queryByText } = setup()
+
+    const searchInput = await findByPlaceholderText(
+      'Search by a location or home name',
+    )
+    expect(queryByText(INITIAL_STATE_REGION_DESTINATION.name)).toBeTruthy()
+
+    expect(searchInput).toBeTruthy()
+
+    const value = 'California'
+    fireEvent.changeText(searchInput, value)
+
+    expect(destinationMock.searchInput).toBe(value)
+    await waitFor(() => {
+      expect(queryByText(INITIAL_STATE_REGION_DESTINATION.name)).toBeFalsy()
+    })
+  })
+
+  test('WHEN press Search button SHOULD back to HomeScreen with las selected Region State in searchInput', async () => {
+    const { findByPlaceholderText, findByText } = setup()
+    const searchInput = await findByPlaceholderText(
+      'Search by a location or home name',
+    )
+
+    expect(searchInput).toBeTruthy()
+
+    const value = 'California'
+    fireEvent.changeText(searchInput, value)
+    expect(destinationMock.searchInput).toBe(value)
+
+    const searchButton = await findByText('Search')
+
+    fireEvent.press(searchButton)
+
+    expect(useNavigation().goBack).toHaveBeenCalled()
   })
 })
