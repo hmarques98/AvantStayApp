@@ -35,7 +35,6 @@ export interface HomeResult {
 }
 
 interface Photo {
-  listOrder: number
   url: string
 }
 

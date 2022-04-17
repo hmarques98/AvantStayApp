@@ -4,11 +4,12 @@ import {
   Home,
   Region,
 } from '@services/api/graphql/models/Destination'
-import { groupBy } from '@shared/utils/arrray/groupBy'
+import { groupBy } from '@shared/utils/array/groupBy'
 
 export const ANY_DESTINATION = 'Any destination'
+
 export const INITIAL_STATE_DESTINATION: Region = {
-  id: '0',
+  id: '',
   name: ANY_DESTINATION,
   stateName: ANY_DESTINATION,
 }
@@ -28,41 +29,20 @@ class DestinationStore {
     makeAutoObservable(this)
   }
 
-  clearDestinationIndex = () => {
-    this.destinationIndex = 0
-  }
-
-  toggleDestination = (destination: Region) => {
-    this.searchInput = ''
-    if (this.destination.id === destination.id)
-      return (this.destination = INITIAL_STATE_DESTINATION)
-    this.destination = destination
-    this.scrollToDestinationStateIndex(destination.stateName)
-  }
-
-  clearAllDestinations = () => {
-    this.destination = INITIAL_STATE_DESTINATION
-    this.destinationIndex = 0
-  }
-
-  setSearchInput = (value: string) => {
-    this.searchInput = value
-  }
-
-  clearSearchInput = () => {
-    this.searchInput = ''
-  }
-
   addRegions = (regions: Region[]) => {
     this.regions = regions
   }
 
-  addHomes = (homes: Home[]) => {
-    this.homes = homes
-  }
+  toggleDestination = (destination: Region) => {
+    this.searchInput = ''
 
-  get getHomesListSize() {
-    return this.homes.length
+    if (this.destination.id !== destination.id) {
+      this.destination = destination
+      this.scrollToDestinationStateIndex(destination.stateName)
+    } else {
+      this.destination = INITIAL_STATE_DESTINATION
+      this.scrollToDestinationStateIndex(ANY_DESTINATION)
+    }
   }
 
   private regionsFilteredByTypedText() {
@@ -96,10 +76,34 @@ class DestinationStore {
   private scrollToDestinationStateIndex = (stateName: string) => {
     const regionsKeysList = Object.keys(this.regionsGrouped)
 
-    const index = regionsKeysList.indexOf(stateName)
     if (this.regionsKeys.length === regionsKeysList.length) {
-      this.destinationIndex = index
+      this.destinationIndex = regionsKeysList.indexOf(stateName)
     }
+  }
+
+  clearAllDestinations = () => {
+    this.destination = INITIAL_STATE_DESTINATION
+    this.destinationIndex = 0
+  }
+
+  clearDestinationIndex = () => {
+    this.destinationIndex = 0
+  }
+
+  setSearchInput = (value: string) => {
+    this.searchInput = value
+  }
+
+  clearSearchInput = () => {
+    this.searchInput = ''
+  }
+
+  addHomes = (homes: Home[]) => {
+    this.homes = homes
+  }
+
+  get getHomesListSize() {
+    return this.homes.length
   }
 }
 
