@@ -26,14 +26,11 @@ const SearchDestinationScreen = () => {
     setSearchInput,
     searchInput,
     clearSearchInput,
-    regionsGroupedKeys,
+    statesGroupedKeys,
     destination,
     destinationIndex,
     clearDestinationIndex,
   } = destinationsStore
-
-  const statesNames = regionsGroupedKeys
-  const { loading, error, data } = useGetRegions()
 
   const listRef = React.useRef<FlatList>(null)
   const searchItemInputRef = React.useRef<TextInput>(null)
@@ -45,7 +42,7 @@ const SearchDestinationScreen = () => {
     extrapolate: 'clamp',
   })
 
-  const toggleWidthAnimation = React.useCallback(
+  const toggleWidthAnimationToValue = React.useCallback(
     (toValue: number) => {
       Animated.timing(animatedWidthDivider.current, {
         toValue: toValue,
@@ -57,22 +54,26 @@ const SearchDestinationScreen = () => {
     [animatedWidthDivider],
   )
 
+  const { loading, error, data } = useGetRegions()
+
   const regionsSize = React.useMemo(
-    () => data?.regions.length,
-    [data?.regions.length],
+    () => (data?.regions ? data?.regions.length : 0),
+    [data?.regions],
   )
 
   const regionSizeList = React.useMemo(
     () =>
-      data?.regions.filter(
-        ({ stateName }) => stateName === destination.stateName,
-      ).length,
+      data?.regions
+        ? data?.regions.filter(
+            ({ stateName }) => stateName === destination.stateName,
+          ).length
+        : 0,
     [data?.regions, destination.stateName],
   )
 
   React.useEffect(() => {
     searchItemInputRef.current?.blur()
-  }, [destination, toggleWidthAnimation])
+  }, [destination, toggleWidthAnimationToValue])
 
   React.useEffect(
     () =>
@@ -105,7 +106,8 @@ const SearchDestinationScreen = () => {
         <Icon icon="logoVowel" />
       </View>
     )
-  if (error)
+
+  if (Boolean(error?.message))
     return (
       <View style={styles.containerError}>
         <Text>Something was wrong</Text>
@@ -118,10 +120,10 @@ const SearchDestinationScreen = () => {
 
       <SearchItem
         onFocus={() => {
-          toggleWidthAnimation(1)
+          toggleWidthAnimationToValue(1)
         }}
         onBlur={() => {
-          toggleWidthAnimation(0)
+          toggleWidthAnimationToValue(0)
         }}
         ref={searchItemInputRef}
         onChangeText={setSearchInput}
@@ -132,20 +134,17 @@ const SearchDestinationScreen = () => {
       <View>
         <Divider />
         <Animated.View
-          style={{
-            position: 'absolute',
-            marginTop: 12,
-            height: 2,
-            width: interpolatedAnimatedDivider,
-            backgroundColor: '#A3DFE6',
-          }}
+          style={[
+            { width: interpolatedAnimatedDivider },
+            styles.animatedDividerView,
+          ]}
         />
       </View>
 
       <FlatList
         bounces={false}
         ref={listRef}
-        data={statesNames}
+        data={statesGroupedKeys}
         ListHeaderComponentStyle={styles.listHeaderComponent}
         ListHeaderComponent={() => {
           return (

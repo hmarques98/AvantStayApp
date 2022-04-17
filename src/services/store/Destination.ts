@@ -56,28 +56,28 @@ class DestinationStore {
     return this.regions
   }
 
-  get regionsGrouped() {
+  get statesGrouped() {
     return groupBy<GroupedByStateName, keyof Region>(
       this.regionsFilteredByTypedText(),
       'stateName',
     )
   }
 
-  get regionsGroupedKeys() {
-    return Object.keys(this.regionsGrouped)
+  get statesGroupedKeys() {
+    return Object.keys(this.statesGrouped)
   }
 
-  get regionsKeys() {
+  get statesKeys() {
     return Object.keys(
       groupBy<GroupedByStateName, keyof Region>(this.regions, 'stateName'),
     )
   }
 
   private scrollToDestinationStateIndex = (stateName: string) => {
-    const regionsKeysList = Object.keys(this.regionsGrouped)
+    const statesKeysList = Object.keys(this.statesGrouped)
 
-    if (this.regionsKeys.length === regionsKeysList.length) {
-      this.destinationIndex = regionsKeysList.indexOf(stateName)
+    if (this.statesKeys.length === statesKeysList.length) {
+      this.destinationIndex = statesKeysList.indexOf(stateName)
     }
   }
 

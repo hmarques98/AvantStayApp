@@ -11,8 +11,8 @@ type HighlightedTextProps = {
 }
 
 const HighlightedText = ({
-  text,
-  textToHighlight,
+  text = '',
+  textToHighlight = '',
   textStyleUnHighlightedText,
   textStyleHighlightedText,
 }: HighlightedTextProps) => {

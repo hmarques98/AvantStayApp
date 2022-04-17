@@ -12,10 +12,6 @@ export interface Region {
   stateName: string
 }
 
-export interface Regions {
-  groupedByStateName: GroupedByStateName
-}
-
 export interface GroupedByStateName {
   [key: string]: Region[]
 }

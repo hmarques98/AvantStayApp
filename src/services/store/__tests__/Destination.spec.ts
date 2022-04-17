@@ -2,10 +2,12 @@ import { Home, Region } from '@services/api/graphql/models/Destination'
 import DestinationStore, { INITIAL_STATE_DESTINATION } from '../Destination'
 
 const mockRegion: Region = { id: '03', name: 'Bend', stateName: 'Oregon' }
+
 const mockRegions: Region[] = [
   { id: '01', name: 'Sonoma', stateName: 'California' },
   { id: '02', name: 'Nashville', stateName: 'Tennessee' },
   { id: '03', name: 'Bend', stateName: 'Oregon' },
+  { id: '04', name: 'San Diego', stateName: 'California' },
 ]
 
 const mockHomes: Partial<Home>[] = [
@@ -47,13 +49,15 @@ beforeEach(() => {
   const store = setup()
   store.toggleDestination(INITIAL_STATE_DESTINATION)
 })
+
 describe('DestinationStore', () => {
   it('WHEN call addRegions SHOULD add Regions to regions list', () => {
     const store = setup()
-    store.addRegions([mockRegion])
-    expect(store.regionsGroupedKeys.length).toBe(1)
-    expect(store.regionsGrouped.State.length).toBe(1)
-    expect(store.regionsKeys.length).toBe(1)
+    store.addRegions(mockRegions)
+
+    expect(store.statesGroupedKeys.length).toBe(3)
+    expect(store.statesGrouped.California.length).toBe(2)
+    expect(store.statesKeys.length).toBe(3)
   })
 
   it('WHEN call toggleDestination  SHOULD handle region destination', () => {
@@ -98,8 +102,8 @@ describe('DestinationStore', () => {
   it('WHEN toggle destination SHOULD handle scrollToDestinationStateIndex', () => {
     const store = setup()
     store.addRegions(mockRegions)
-    expect(store.regionsGroupedKeys.length).toBe(3)
-    expect(store.regionsKeys.length).toBe(3)
+    expect(store.statesGroupedKeys.length).toBe(3)
+    expect(store.statesKeys.length).toBe(3)
 
     store.toggleDestination(mockRegions[2])
     expect(store.destination).toStrictEqual(mockRegions[2])

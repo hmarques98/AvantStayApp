@@ -10,7 +10,7 @@ type IconProps = PathProps &
   }
 
 const Icon = (props: IconProps) => (
-  <View testID="icon" {...props}>
+  <View testID={`icon${props.icon}`} {...props}>
     {svgIcons[props.icon](props)}
   </View>
 )

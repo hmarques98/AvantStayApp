@@ -24,5 +24,11 @@ const styles = StyleSheet.create({
     color: '#022B5499',
   },
   emptyListContainer: { alignItems: 'center' },
+  animatedDividerView: {
+    position: 'absolute',
+    marginTop: 12,
+    height: 2,
+    backgroundColor: '#A3DFE6',
+  },
 })
 export default styles

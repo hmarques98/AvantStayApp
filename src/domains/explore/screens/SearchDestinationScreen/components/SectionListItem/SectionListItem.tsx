@@ -12,19 +12,19 @@ type SectionListItemProps = { stateName: string }
 const SectionListItem = ({ stateName }: SectionListItemProps) => {
   const { destinationsStore } = useStores()
 
-  const { regionsGrouped } = destinationsStore
+  const { statesGrouped } = destinationsStore
 
   return (
     <View style={{ marginBottom: 18 }}>
       <SectionHeaderItem
         stateName={stateName}
-        showCanSelectAllButton={regionsGrouped?.[stateName].length > 1}
+        showCanSelectAllButton={statesGrouped?.[stateName].length > 1}
       />
 
       <Divider />
 
       <FlatList
-        data={regionsGrouped[stateName] as Region[]}
+        data={statesGrouped[stateName] as Region[]}
         keyExtractor={({ name }) => name}
         renderItem={({ item }) => {
           return <SelectItem region={item} key={item.name} />
