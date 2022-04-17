@@ -4,9 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
 
-import { Region } from '@services/api/graphql/models/Destination'
 import { useStores } from '@services/store'
-import { ANY_DESTINATION } from '@services/store/Destination'
+import { INITIAL_STATE_REGION_DESTINATION } from '@services/store/Destination'
 
 import Button from '@shared-components/Button'
 import Icon from '@shared-components/Icon'
@@ -20,7 +19,7 @@ import styles from './styles'
 
 const SearchDestinationScreen = () => {
   const navigation = useNavigation()
-  const { destinationsStore } = useStores()
+  const { destinationStore } = useStores()
   const {
     setSearchInput,
     searchInput,
@@ -29,7 +28,7 @@ const SearchDestinationScreen = () => {
     destination,
     destinationIndex,
     clearDestinationIndex,
-  } = destinationsStore
+  } = destinationStore
 
   const listRef = React.useRef<FlatList>(null)
   const searchItemInputRef = React.useRef<TextInput>(null)
@@ -41,7 +40,7 @@ const SearchDestinationScreen = () => {
     [data?.regions],
   )
 
-  const regionSizeList = React.useMemo(
+  const regionSizeByStateName = React.useMemo(
     () =>
       data?.regions
         ? data?.regions.filter(
@@ -66,7 +65,7 @@ const SearchDestinationScreen = () => {
   React.useEffect(() => {
     if (destinationIndex > 0) {
       const toOffset =
-        (destinationIndex * Number(regionsSize)) / Number(regionSizeList)
+        (destinationIndex * Number(regionsSize)) / Number(regionSizeByStateName)
 
       const viewOffset = ~Math.max(toOffset, 0)
 
@@ -78,7 +77,7 @@ const SearchDestinationScreen = () => {
         }),
       )
     }
-  }, [destinationIndex, regionSizeList, regionsSize])
+  }, [destinationIndex, regionSizeByStateName, regionsSize])
 
   if (loading)
     return (
@@ -99,6 +98,7 @@ const SearchDestinationScreen = () => {
       <Header />
 
       <SearchField
+        placeholder="Search by a location or home name"
         ref={searchItemInputRef}
         onChangeText={setSearchInput}
         value={searchInput}
@@ -114,7 +114,7 @@ const SearchDestinationScreen = () => {
           return (
             <>
               {!searchInput && (
-                <SelectItem region={{ name: ANY_DESTINATION } as Region} />
+                <SelectItem region={INITIAL_STATE_REGION_DESTINATION} />
               )}
             </>
           )

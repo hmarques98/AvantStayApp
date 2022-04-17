@@ -6,7 +6,7 @@ const StoresContext = React.createContext({})
 
 const AllTheProviders = ({ children }: PropsWithChildren<unknown>) => {
   const INITIAL_STATE = {
-    destinationsStore: Destination,
+    destinationStore: Destination,
   }
   return (
     <StoresContext.Provider value={INITIAL_STATE}>

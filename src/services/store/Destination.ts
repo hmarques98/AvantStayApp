@@ -8,14 +8,14 @@ import { groupBy } from '@shared/utils/array/groupBy'
 
 export const ANY_DESTINATION = 'Any destination'
 
-export const INITIAL_STATE_DESTINATION: Region = {
+export const INITIAL_STATE_REGION_DESTINATION: Region = {
   id: '',
   name: ANY_DESTINATION,
   stateName: ANY_DESTINATION,
 }
 
 class DestinationStore {
-  destination: Region = INITIAL_STATE_DESTINATION
+  destination: Region = INITIAL_STATE_REGION_DESTINATION
 
   private regions: Region[] = []
 
@@ -40,7 +40,7 @@ class DestinationStore {
       this.destination = destination
       this.scrollToDestinationStateIndex(destination.stateName)
     } else {
-      this.destination = INITIAL_STATE_DESTINATION
+      this.destination = INITIAL_STATE_REGION_DESTINATION
       this.scrollToDestinationStateIndex(ANY_DESTINATION)
     }
   }
@@ -82,7 +82,7 @@ class DestinationStore {
   }
 
   clearAllDestinations = () => {
-    this.destination = INITIAL_STATE_DESTINATION
+    this.destination = INITIAL_STATE_REGION_DESTINATION
     this.destinationIndex = 0
   }
 

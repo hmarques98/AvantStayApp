@@ -14,8 +14,8 @@ const SectionHeader = ({
   stateName,
   showCanSelectAllButton,
 }: SectionHeaderProps) => {
-  const { destinationsStore } = useStores()
-  const { searchInput } = destinationsStore
+  const { destinationStore } = useStores()
+  const { searchInput } = destinationStore
 
   return (
     <View style={styles.container}>

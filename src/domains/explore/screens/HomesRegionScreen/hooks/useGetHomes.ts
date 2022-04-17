@@ -8,8 +8,8 @@ interface UseGetHomes {
   regionId: string
 }
 const useGetHomes = ({ regionId }: UseGetHomes) => {
-  const { destinationsStore } = useStores()
-  const { addHomes } = destinationsStore
+  const { destinationStore } = useStores()
+  const { addHomes } = destinationStore
   const { loading, error, data, refetch } = useQuery<
     HomesResult,
     HomesQueryRequest

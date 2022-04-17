@@ -13,7 +13,7 @@ import Header from './components/Header'
 import { ExploreStackEnum } from '@shared-models/Navigation'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ExploreStackParamList } from '@services/navigation/Stacks'
-import { INITIAL_STATE_DESTINATION } from '@services/store/Destination'
+import { INITIAL_STATE_REGION_DESTINATION } from '@services/store/Destination'
 
 export type ExploreNavigationProps = NativeStackNavigationProp<
   ExploreStackParamList,
@@ -23,9 +23,9 @@ export type ExploreNavigationProps = NativeStackNavigationProp<
 const HomeScreen = () => {
   const navigation = useNavigation<ExploreNavigationProps>()
 
-  const { destinationsStore } = useStores()
+  const { destinationStore } = useStores()
 
-  const { destination } = destinationsStore
+  const { destination } = destinationStore
 
   const goToSearchDestinationScreen = () => {
     navigation.navigate(ExploreStackEnum.SEARCH_DESTINATION_SCREEN)
@@ -33,7 +33,10 @@ const HomeScreen = () => {
 
   const goToHomesRegionScreen = () => {
     navigation.navigate(ExploreStackEnum.HOMES_REGION_SCREEN, {
-      id: destination.id === INITIAL_STATE_DESTINATION.id ? '' : destination.id,
+      id:
+        destination.id === INITIAL_STATE_REGION_DESTINATION.id
+          ? ''
+          : destination.id,
     })
   }
 

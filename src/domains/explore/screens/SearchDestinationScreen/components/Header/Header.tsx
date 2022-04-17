@@ -10,8 +10,8 @@ import styles from './styles'
 const Header = () => {
   const navigation = useNavigation()
 
-  const { destinationsStore } = useStores()
-  const { clearAllDestinations, destination } = destinationsStore
+  const { destinationStore } = useStores()
+  const { clearAllDestinations, destination } = destinationStore
 
   return (
     <View style={styles.container}>

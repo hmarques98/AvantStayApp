@@ -4,8 +4,8 @@ import { GET_REGIONS } from '@services/api/graphql/queries/Destination'
 import { useStores } from '@services/store'
 
 const useGetRegions = () => {
-  const { destinationsStore } = useStores()
-  const { addRegions } = destinationsStore
+  const { destinationStore } = useStores()
+  const { addRegions } = destinationStore
 
   const { loading, error, data } = useQuery<Regions>(GET_REGIONS, {
     onCompleted: ({ regions }) => {

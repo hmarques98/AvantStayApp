@@ -10,9 +10,9 @@ import SelectItem from '../SelectItem'
 type SectionListItemProps = { stateName: string }
 
 const SectionListItem = ({ stateName }: SectionListItemProps) => {
-  const { destinationsStore } = useStores()
+  const { destinationStore } = useStores()
 
-  const { statesGrouped } = destinationsStore
+  const { statesGrouped } = destinationStore
 
   return (
     <View style={{ marginBottom: 18 }}>

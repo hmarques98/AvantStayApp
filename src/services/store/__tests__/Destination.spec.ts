@@ -1,5 +1,7 @@
 import { Home, Region } from '@services/api/graphql/models/Destination'
-import DestinationStore, { INITIAL_STATE_DESTINATION } from '../Destination'
+import DestinationStore, {
+  INITIAL_STATE_REGION_DESTINATION,
+} from '../Destination'
 
 const mockRegion: Region = { id: '03', name: 'Bend', stateName: 'Oregon' }
 
@@ -47,7 +49,7 @@ const setup = () => {
 
 beforeEach(() => {
   const store = setup()
-  store.toggleDestination(INITIAL_STATE_DESTINATION)
+  store.toggleDestination(INITIAL_STATE_REGION_DESTINATION)
 })
 
 describe('DestinationStore', () => {
@@ -95,7 +97,7 @@ describe('DestinationStore', () => {
     expect(store.destinationIndex).toBe(2)
 
     store.clearAllDestinations()
-    expect(store.destination).toStrictEqual(INITIAL_STATE_DESTINATION)
+    expect(store.destination).toStrictEqual(INITIAL_STATE_REGION_DESTINATION)
     expect(store.destinationIndex).toBe(0)
   })
 

@@ -6,7 +6,7 @@ configure({
 })
 
 const INITIAL_STATE = {
-  destinationsStore: Destination,
+  destinationStore: Destination,
 }
 const StoresContext = createContext(INITIAL_STATE)
 

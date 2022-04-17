@@ -13,8 +13,8 @@ interface SelectItemProps {
 }
 
 const SelectItem = ({ region }: SelectItemProps) => {
-  const { destinationsStore } = useStores()
-  const { searchInput, destination, toggleDestination } = destinationsStore
+  const { destinationStore } = useStores()
+  const { searchInput, destination, toggleDestination } = destinationStore
 
   return (
     <TouchableOpacity

@@ -49,8 +49,6 @@ const SearchField = React.forwardRef<TextInput, SearchFieldProps>(
           </TouchableOpacity>
           <TextInput
             ref={ref}
-            accessibilityLabel="Search by a location or home name"
-            placeholder="Search by a location or home name"
             {...restProps}
             style={styles.searchInput}
             onFocus={e => {
