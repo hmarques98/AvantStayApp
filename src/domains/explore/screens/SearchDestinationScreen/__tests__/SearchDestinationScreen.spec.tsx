@@ -179,7 +179,7 @@ describe('SearchDestinationScreen', () => {
     expect(queryByText('Select all')).toBeTruthy()
   })
 
-  test('WHEN type in search text SHOULD handle searchInput', async () => {
+  test('WHEN type in searchField SHOULD handle searchInput', async () => {
     const { findByA11yLabel } = setup()
 
     const searchInput = await findByA11yLabel(

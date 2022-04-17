@@ -13,5 +13,11 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 16,
   },
+  animatedDividerView: {
+    position: 'absolute',
+    marginTop: 12,
+    height: 2,
+    backgroundColor: '#A3DFE6',
+  },
 })
 export default styles

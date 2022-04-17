@@ -1,5 +1,5 @@
 import React from 'react'
-import { Animated, Easing, FlatList, Text, TextInput, View } from 'react-native'
+import { FlatList, Text, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
@@ -12,12 +12,11 @@ import Button from '@shared-components/Button'
 import Icon from '@shared-components/Icon'
 
 import Header from './components/Header'
-import SearchItem from './components/SearchItem'
+import SearchField from './components/SearchField'
 import SectionListItem from './components/SectionListItem'
 import SelectItem from './components/SelectItem'
 import useGetRegions from './hooks/useGetRegions'
 import styles from './styles'
-import Divider from '@shared-components/Divider'
 
 const SearchDestinationScreen = () => {
   const navigation = useNavigation()
@@ -34,25 +33,6 @@ const SearchDestinationScreen = () => {
 
   const listRef = React.useRef<FlatList>(null)
   const searchItemInputRef = React.useRef<TextInput>(null)
-  const animatedWidthDivider = React.useRef(new Animated.Value(0))
-
-  const interpolatedAnimatedDivider = animatedWidthDivider.current.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0%', '100%'],
-    extrapolate: 'clamp',
-  })
-
-  const toggleWidthAnimationToValue = React.useCallback(
-    (toValue: number) => {
-      Animated.timing(animatedWidthDivider.current, {
-        toValue: toValue,
-        useNativeDriver: false,
-        duration: 400,
-        easing: Easing.ease,
-      }).start()
-    },
-    [animatedWidthDivider],
-  )
 
   const { loading, error, data } = useGetRegions()
 
@@ -73,7 +53,7 @@ const SearchDestinationScreen = () => {
 
   React.useEffect(() => {
     searchItemInputRef.current?.blur()
-  }, [destination, toggleWidthAnimationToValue])
+  }, [destination])
 
   React.useEffect(
     () =>
@@ -118,28 +98,12 @@ const SearchDestinationScreen = () => {
     <SafeAreaView style={styles.container}>
       <Header />
 
-      <SearchItem
-        onFocus={() => {
-          toggleWidthAnimationToValue(1)
-        }}
-        onBlur={() => {
-          toggleWidthAnimationToValue(0)
-        }}
+      <SearchField
         ref={searchItemInputRef}
         onChangeText={setSearchInput}
         value={searchInput}
         onPressCloseXIcon={clearSearchInput}
       />
-
-      <View>
-        <Divider />
-        <Animated.View
-          style={[
-            { width: interpolatedAnimatedDivider },
-            styles.animatedDividerView,
-          ]}
-        />
-      </View>
 
       <FlatList
         bounces={false}
