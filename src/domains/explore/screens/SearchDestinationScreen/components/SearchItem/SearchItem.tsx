@@ -4,6 +4,7 @@ import { TextInput, TextInputProps, TouchableOpacity, View } from 'react-native'
 
 import Icon from '@shared-components/Icon'
 import styles from './styles'
+import { observer } from 'mobx-react-lite'
 
 type SearchItemProps = TextInputProps & {
   onPressSearchIcon?(): void
@@ -19,6 +20,7 @@ const SearchItem = React.forwardRef<TextInput, SearchItemProps>(
         </TouchableOpacity>
         <TextInput
           ref={ref}
+          accessibilityLabel="Search by a location or home name"
           placeholder="Search by a location or home name"
           style={styles.searchInput}
           {...restProps}
@@ -30,4 +32,4 @@ const SearchItem = React.forwardRef<TextInput, SearchItemProps>(
     )
   },
 )
-export default React.memo(SearchItem)
+export default observer(SearchItem)
