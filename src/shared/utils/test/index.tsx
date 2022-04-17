@@ -1,8 +1,9 @@
 import React, { FC, PropsWithChildren, ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react-native'
+import { StoresProvider } from '@services/store'
 
 const AllTheProviders: FC = ({ children }: PropsWithChildren<unknown>) => {
-  return <>{children}</>
+  return <StoresProvider>{children}</StoresProvider>
 }
 
 const customRender = (

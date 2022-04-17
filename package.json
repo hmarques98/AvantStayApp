@@ -10,7 +10,7 @@
     "eject": "expo eject",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "test": "jest --verbose",
+    "test": "jest --verbose --no-cache",
     "test:watch": "jest --verbose --watch",
     "devtools": "react-devtools"
   },

@@ -5,19 +5,16 @@ configure({
   enforceActions: 'never',
 })
 
-const StoresContext = createContext({
+const INITIAL_STATE = {
   destinationsStore: Destination,
-})
+}
+const StoresContext = createContext(INITIAL_STATE)
 
 export const StoresProvider = ({
   children,
 }: React.PropsWithChildren<unknown>) => {
   return (
-    <StoresContext.Provider
-      value={{
-        destinationsStore: Destination,
-      }}
-    >
+    <StoresContext.Provider value={INITIAL_STATE}>
       {children}
     </StoresContext.Provider>
   )
