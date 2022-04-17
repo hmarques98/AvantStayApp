@@ -1,16 +1,18 @@
 import React from 'react'
-import { FlatList, Text, TextInput, View } from 'react-native'
+import { FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
 
 import { useStores } from '@services/store'
-import { INITIAL_STATE_REGION_DESTINATION } from '@services/store/Destination'
+import {
+  ANY_DESTINATION,
+  INITIAL_STATE_REGION_DESTINATION,
+} from '@services/store/Destination'
 
 import Button from '@shared-components/Button'
 import Icon from '@shared-components/Icon'
 
-import Header from './components/Header'
 import SearchField from './components/SearchField'
 import SectionListItem from './components/SectionListItem'
 import SelectItem from './components/SelectItem'
@@ -28,6 +30,7 @@ const SearchDestinationScreen = () => {
     destination,
     destinationIndex,
     clearDestinationIndex,
+    clearAllDestinations,
   } = destinationStore
 
   const listRef = React.useRef<FlatList>(null)
@@ -95,7 +98,23 @@ const SearchDestinationScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <View style={styles.headerContainer}>
+        <TouchableOpacity
+          style={styles.headerBackButton}
+          onPress={navigation.goBack}
+        >
+          <Icon icon="chevronLeft" />
+          <View style={styles.headerBackButtonTextContainer}>
+            <Text style={styles.headerBackButtonText}>Where</Text>
+          </View>
+        </TouchableOpacity>
+
+        {destination?.name !== ANY_DESTINATION && (
+          <TouchableOpacity onPress={clearAllDestinations}>
+            <Text style={styles.headerClearText}>Clear All {'(1)'}</Text>
+          </TouchableOpacity>
+        )}
+      </View>
 
       <SearchField
         placeholder="Search by a location or home name"
