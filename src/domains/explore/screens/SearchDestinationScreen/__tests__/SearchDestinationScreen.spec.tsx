@@ -155,6 +155,7 @@ const setup = (
     ...render(<SearchDestinationScreen />),
   }
 }
+
 describe('SearchDestinationScreen', () => {
   test('WHEN loading is true SHOULD render loading content', () => {
     const { queryByTestId } = setup({
