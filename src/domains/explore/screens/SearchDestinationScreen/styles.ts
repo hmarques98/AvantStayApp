@@ -24,7 +24,11 @@ const styles = StyleSheet.create({
     color: '#022B5499',
   },
   emptyListContainer: { alignItems: 'center' },
-  headerContainer: { flexDirection: 'row', justifyContent: 'space-between' },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 26,
+  },
   headerBackButton: { flexDirection: 'row', alignItems: 'center' },
   headerBackButtonTextContainer: { marginLeft: 12 },
   headerBackButtonText: {

@@ -11,8 +11,7 @@ import {
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { MarkdownView } from 'react-native-markdown-view'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import ExpoStatusBar from 'expo-status-bar/build/ExpoStatusBar'
-import { setStatusBarStyle } from 'expo-status-bar'
+import { setStatusBarStyle, StatusBar } from 'expo-status-bar'
 
 import { ExploreStackParamList } from '@services/navigation/Stacks'
 import { ExploreStackEnum } from '@shared-models/Navigation'
@@ -103,7 +102,7 @@ const HomeDetailScreen = () => {
 
   return (
     <View style={{ backgroundColor: '#fff' }}>
-      <ExpoStatusBar style="light" />
+      <StatusBar style="light" />
       <AnimatedHeader
         animatedValue={offsetAnimatedHeaderRef}
         onPressIconLeft={navigationGoBack}
