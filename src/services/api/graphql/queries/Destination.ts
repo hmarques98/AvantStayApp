@@ -17,7 +17,6 @@ export const GET_HOMES = gql`
         id
         title
         photos {
-          listOrder
           url
         }
         bathroomsCount

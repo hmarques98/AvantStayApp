@@ -23,7 +23,7 @@ import styles from './styles'
 import AnimatedHeader from './components/AnimatedHeader'
 import AmenitiesList from './components/AmenitiesList'
 import PhotosList from './components/PhotosList'
-import { HEADER_HEIGHT } from './components/AnimatedHeader/AnimatedHeader'
+import { HEADER_HEIGHT } from './components/AnimatedHeader'
 
 type HomesRegionsRouteProps = RouteProp<
   ExploreStackParamList,

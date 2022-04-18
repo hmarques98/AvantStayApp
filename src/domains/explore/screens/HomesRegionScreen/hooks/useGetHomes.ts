@@ -10,6 +10,7 @@ interface UseGetHomes {
 const useGetHomes = ({ regionId }: UseGetHomes) => {
   const { destinationStore } = useStores()
   const { addHomes } = destinationStore
+
   const { loading, error, data, refetch } = useQuery<
     HomesResult,
     HomesQueryRequest

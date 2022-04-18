@@ -41,8 +41,7 @@ const HomeDetailSection = ({ data }: HomeDetailSectionProps) => {
           <View style={styles.detailHomeContainer}>
             <Icon icon="bath" opacity={0.7} />
             <Text style={styles.detailsHomeText}>
-              {bathroomsCount} Bathroom
-              {`${bathroomsCount > 1 ? 's' : ''}`}
+              {bathroomsCount} Bathroom{`${bathroomsCount > 1 ? 's' : ''}`}
             </Text>
           </View>
         )}

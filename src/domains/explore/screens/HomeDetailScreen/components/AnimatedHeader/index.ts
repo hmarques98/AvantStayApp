@@ -1,1 +1,1 @@
-export { default } from './AnimatedHeader'
+export { default, HEADER_HEIGHT } from './AnimatedHeader'

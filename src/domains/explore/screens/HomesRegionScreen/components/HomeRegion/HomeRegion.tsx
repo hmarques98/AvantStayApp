@@ -40,6 +40,7 @@ const HomeRegion = ({
     >
       <TouchableWithoutFeedback onPress={onPressItem}>
         <ImageBackground
+          testID="photo"
           style={styles.imageBackgroundContainer}
           imageStyle={{ borderRadius: 10 }}
           source={{
