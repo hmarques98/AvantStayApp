@@ -14,7 +14,7 @@ import styles from './styles'
 import { observer } from 'mobx-react-lite'
 import Divider from '@shared-components/Divider'
 
-type SearchFieldProps = TextInputProps & {
+export type SearchFieldProps = TextInputProps & {
   onPressSearchIcon?(): void
   onPressCloseXIcon?(): void
 }
@@ -41,12 +41,14 @@ const SearchField = React.forwardRef<TextInput, SearchFieldProps>(
       },
       [animatedWidthDivider],
     )
+
     return (
       <View>
         <View style={styles.container}>
           <TouchableOpacity onPress={onPressSearchIcon}>
             <Icon icon="search" style={styles.searchIcon} opacity={0.4} />
           </TouchableOpacity>
+
           <TextInput
             ref={ref}
             {...restProps}
@@ -60,6 +62,7 @@ const SearchField = React.forwardRef<TextInput, SearchFieldProps>(
               restProps.onBlur?.(e)
             }}
           />
+
           <TouchableOpacity onPress={onPressCloseXIcon}>
             <Icon icon="closeX" style={styles.closeXIcon} />
           </TouchableOpacity>
@@ -67,6 +70,7 @@ const SearchField = React.forwardRef<TextInput, SearchFieldProps>(
 
         <View>
           <Divider />
+
           <Animated.View
             style={[
               { width: interpolatedAnimatedDivider },
