@@ -1,6 +1,11 @@
 import React from 'react'
 import { Dimensions, FlatList, View, Platform, Text } from 'react-native'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import {
+  RouteProp,
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
@@ -13,6 +18,7 @@ import HomeRegion from './components/HomeRegion'
 import useGetHomes from './hooks/useGetHomes'
 import DatePickerField from './components/DatePickerField'
 import styles from './styles'
+import { useStores } from '@services/store'
 
 type HomesRegionsRouteProps = RouteProp<
   ExploreStackParamList,
@@ -36,9 +42,26 @@ const HomesRegionScreen = () => {
     params: { id },
   } = useRoute<HomesRegionsRouteProps>()
 
+  const { destinationStore } = useStores()
+
+  const {
+    bookingPeriod,
+    formattedSelectedBookingPeriod,
+    quantityOfDaysSimulateBook,
+  } = destinationStore
+
   const navigation = useNavigation<HomeRegionNavigationProps>()
 
-  const { data, loading } = useGetHomes({ regionId: id })
+  const { data, loading, refetch } = useGetHomes({
+    regionId: id,
+    bookingPeriod,
+  })
+
+  useFocusEffect(
+    React.useCallback(() => {
+      refetch({ bookingPeriod })
+    }, [bookingPeriod, refetch]),
+  )
 
   const renderItem = React.useCallback(
     ({ index, item }: { item: Home; index: number }) => {
@@ -116,7 +139,13 @@ const HomesRegionScreen = () => {
         )}
       </View>
       <View style={styles.datePickerContainer}>
-        <DatePickerField />
+        <DatePickerField
+          quantityBadgeBookSimulation={quantityOfDaysSimulateBook}
+          placeholderValue={formattedSelectedBookingPeriod}
+          onPress={() => {
+            navigation.navigate(ExploreStackEnum.CALENDAR_SCREEN)
+          }}
+        />
       </View>
     </View>
   )

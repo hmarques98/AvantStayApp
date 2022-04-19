@@ -1,3 +1,4 @@
+import { FONT_SSP_600 } from '@shared/styles/theme/fonts'
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -14,11 +15,29 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   fieldTextContainer: { flex: 1 },
-  iconContainer: {
+  divider: {
     height: '80%',
     width: 2,
     backgroundColor: '#022B5426',
     marginHorizontal: 15,
+  },
+  iconContainer: {
+    position: 'absolute',
+    right: -6,
+    top: -6,
+    width: 18,
+    height: 18,
+    borderRadius: 18,
+    backgroundColor: '#022B54',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1,
+  },
+  quantityBadgeText: {
+    color: '#ffffff',
+    fontSize: 11,
+    fontFamily: FONT_SSP_600,
+    textAlign: 'center',
   },
 })
 export default styles

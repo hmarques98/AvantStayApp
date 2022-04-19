@@ -1,10 +1,12 @@
 import { makeAutoObservable } from 'mobx'
 import {
+  BookingPeriod,
   GroupedByStateName,
   Home,
   Region,
 } from '@services/api/graphql/models/Destination'
 import { groupBy } from '@shared/utils/array/groupBy'
+import { differenceInCalendarDays, format, parseISO } from 'date-fns'
 
 export const ANY_DESTINATION = 'Any destination'
 
@@ -16,6 +18,11 @@ export const INITIAL_STATE_REGION_DESTINATION: Region = {
 
 class DestinationStore {
   destination: Region = INITIAL_STATE_REGION_DESTINATION
+
+  bookingPeriod: BookingPeriod = {
+    checkIn: '',
+    checkOut: '',
+  }
 
   private regions: Region[] = []
 
@@ -104,6 +111,36 @@ class DestinationStore {
 
   get getHomesListSize() {
     return this.homes.length
+  }
+
+  handleBookingPeriod = (bookingPeriodDates: BookingPeriod) => {
+    console.log({ bookingPeriodDates })
+
+    this.bookingPeriod = bookingPeriodDates
+  }
+
+  get formattedSelectedBookingPeriod() {
+    if (Object.values(this.bookingPeriod).every(item => item))
+      return `${format(
+        new Date(parseISO(this.bookingPeriod.checkIn)),
+        'EE, dd MMM',
+      )} -  ${format(
+        new Date(parseISO(this.bookingPeriod.checkOut)),
+        'EE, dd MMM, yyyy',
+      )}`
+  }
+
+  get quantityOfDaysSimulateBook() {
+    if (Object.values(this.bookingPeriod).every(item => item)) {
+      const days = differenceInCalendarDays(
+        new Date(this.bookingPeriod.checkOut),
+        new Date(this.bookingPeriod.checkIn),
+      )
+
+      return days + 1
+    }
+
+    return 0
   }
 }
 

@@ -5,10 +5,9 @@ const styles = StyleSheet.create({
   container: {},
   label: { color: '#34AEBC', fontFamily: FONT_SSP_600 },
   placeholder: {
-    color: '#022B54',
+    color: '#022B544D',
     fontFamily: FONT_SSP_400,
     marginVertical: 2,
-    opacity: 0.3,
   },
   divider: {
     backgroundColor: '#022B54',

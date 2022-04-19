@@ -14,7 +14,10 @@
       "@colors": ["./shared/styles/theme/colors"],
       "@theme/*": ["./shared/styles/theme/*"],
       "@utils": ["./shared/utils/*"],
-      "@assets/*": ["./assets/*"]
+      "@assets/*": ["./assets/*"],
+      "react-native-calendars": [
+        "../node_modules/@types/react-native-calendars"
+      ]
     }
   },
   "exclude": ["./__mocks__"]

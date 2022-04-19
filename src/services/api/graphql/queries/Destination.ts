@@ -11,8 +11,8 @@ export const GET_REGIONS = gql`
 `
 
 export const GET_HOMES = gql`
-  query GetHomes($region: UUID) {
-    homes(region: $region) {
+  query GetHomes($region: UUID, $bookingPeriod: BookingPeriod) {
+    homes(region: $region, period: $bookingPeriod) {
       results {
         id
         title
@@ -26,6 +26,12 @@ export const GET_HOMES = gql`
         stateCode
         cityName
         maxOccupancy
+        seasonPricing {
+          highSeason {
+            minPrice
+            maxPrice
+          }
+        }
       }
     }
   }

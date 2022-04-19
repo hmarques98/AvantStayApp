@@ -60,3 +60,8 @@ export interface HighSeason {
   minPrice: number
   maxPrice: number
 }
+
+export interface BookingPeriod {
+  checkIn: string
+  checkOut: string
+}

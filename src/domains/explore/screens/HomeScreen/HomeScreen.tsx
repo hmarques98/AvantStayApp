@@ -25,7 +25,7 @@ const HomeScreen = () => {
 
   const { destinationStore } = useStores()
 
-  const { destination } = destinationStore
+  const { destination, formattedSelectedBookingPeriod } = destinationStore
 
   const goToSearchDestinationScreen = () => {
     navigation.navigate(ExploreStackEnum.SEARCH_DESTINATION_SCREEN)
@@ -58,8 +58,15 @@ const HomeScreen = () => {
 
           <FieldText
             label="Check In - Check Out"
-            placeholder="Select dates"
+            placeholder={
+              formattedSelectedBookingPeriod
+                ? formattedSelectedBookingPeriod
+                : 'Select dates'
+            }
             showDivider
+            onPress={() => {
+              navigation.navigate(ExploreStackEnum.CALENDAR_SCREEN)
+            }}
           />
           <FieldText label="Who" placeholder="Add guests" />
         </View>
