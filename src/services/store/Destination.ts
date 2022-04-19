@@ -114,8 +114,6 @@ class DestinationStore {
   }
 
   handleBookingPeriod = (bookingPeriodDates: BookingPeriod) => {
-    console.log({ bookingPeriodDates })
-
     this.bookingPeriod = bookingPeriodDates
   }
 
