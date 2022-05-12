@@ -14,7 +14,7 @@
   - [Project Status](#project-status)
 
 ## General info
-This project is a simple version of the Avant Stay Mobile app which I have created using React Native + Typescript. It is consuming a Graphql fake API provided by Avant Stay to test it. I also used Mobx to state management.
+This project is a simple version of the Avant Stay Mobile app which I have created using React Native + Typescript. It is consuming a Graphql fake API provided by Avant Stay to test it. I also used Mobx to state management. To test it I used Jest + Testing Library React Native.
 	
 ## Main Technologies Used
 - Expo - version 44.0.0
@@ -24,6 +24,8 @@ This project is a simple version of the Avant Stay Mobile app which I have creat
 - Mobx- version 6.5.0
 - Apollo Client(Graphql) - version 3.5.10
 - Date-fns - version 2.28.0
+- Jest - version 27.5.1
+- React Native Testing Library - version 9.1.0
 
 ## Features
 
@@ -39,16 +41,16 @@ This project is a simple version of the Avant Stay Mobile app which I have creat
 <img src="assets/screenshots/home-1.png" 
 alt="Home Search" width="240" height="540" />
 <img src="assets/screenshots/searched-region-highlighted.png" 
-alt="IMAGE ALT TEXT HERE" width="240" height="540" />
+alt="Region Highlighted" width="240" height="540" />
 <img src="assets/screenshots/searched-state-highlighted.png" 
-alt="IMAGE ALT TEXT HERE" width="240" height="540" />
+alt="State Highlighted" width="240" height="540" />
 </p>
 
 <p float="left">
   <img src="assets/screenshots/properties-detail.png" 
-alt="Home Search" width="240" height="540" />
+alt="Properties Detail" width="240" height="540" />
 <img src="assets/screenshots/single-property-detail.png" 
-alt="IMAGE ALT TEXT HERE" width="240" height="540" />
+alt="Property Detail" width="240" height="540" />
 
 </p>
 
